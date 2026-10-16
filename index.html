@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts Inter -->
+    <!-- Google Fonts Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -708,7 +708,6 @@
         let giziChartInstance = null;
         let kmsChartInstance = null;
 
-        // safe icon refresh
         function refreshIcons() {
             if (typeof lucide !== 'undefined' && lucide.createIcons) {
                 setTimeout(() => lucide.createIcons(), 50);
@@ -787,15 +786,24 @@
             return months <= 0 ? 0 : months;
         }
 
+        // Penilaian Status Gizi Sederhana Berdasarkan Standar WHO/Kemenkes
         function evaluateStatusGizi(bb, tb, umurBulan) {
             if (!bb || bb === 0) return { status: 'Belum Diukur', class: 'bg-slate-100 text-slate-600' };
 
-            let idealBb = 3.3 + (umurBulan * 0.5);
+            let idealBb = 3.3;
+            if (umurBulan <= 12) {
+                idealBb = 3.3 + (umurBulan * 0.5);
+            } else if (umurBulan <= 24) {
+                idealBb = 9.0 + ((umurBulan - 12) * 0.25);
+            } else {
+                idealBb = 12.0 + ((umurBulan - 24) * 0.15);
+            }
+
             let rasio = bb / idealBb;
 
-            if (rasio >= 0.85 && rasio <= 1.25) {
+            if (rasio >= 0.82 && rasio <= 1.25) {
                 return { status: 'Gizi Baik', class: 'bg-emerald-100 text-emerald-800' };
-            } else if (rasio < 0.85 && rasio >= 0.70) {
+            } else if (rasio < 0.82 && rasio >= 0.70) {
                 return { status: 'Perlu Perhatian', class: 'bg-amber-100 text-amber-800' };
             } else if (rasio < 0.70) {
                 return { status: 'Stunting / Kurang', class: 'bg-rose-100 text-rose-800' };
