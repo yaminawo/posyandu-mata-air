@@ -8,8 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -30,14 +28,13 @@
                         <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Posyandu Mata Air</h1>
                         <p class="text-xs sm:text-sm text-emerald-100 mt-1 flex items-center">
                             <i class="fa-solid fa-location-dot mr-1.5 text-rose-300"></i>
-                            Jln.Melati NO 08, Rt 08/RW 04, Kelurahan Kalabahi Kota,
-Kecamatan Teluk Mutiara, Kabupaten Alor
+                            Jl. Melati No. 08, RT 08/RW 04, Kel. Kalabahi Kota, Kec. Teluk Mutiara, Kab. Alor
                         </p>
                     </div>
                 </div>
                 <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl text-xs flex items-center space-x-2 self-start md:self-center">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>Status Data: <strong id="syncStatus">Terhubung (Live)</strong></span>
+                    <span id="statusIndicator" class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+                    <span>Status Data: <strong id="syncStatus">Memuat Data...</strong></span>
                 </div>
             </div>
         </div>
@@ -63,11 +60,11 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
                     </div>
                     <div class="bg-teal-50 p-3 rounded-xl">
                         <span class="text-slate-400 block">Jam Operasional</span>
-                        <strong class="text-teal-800">08.00 - 11.30 WIB</strong>
+                        <strong class="text-teal-800">08.00 - 11.30 WITA</strong>
                     </div>
                     <div class="bg-cyan-50 p-3 rounded-xl col-span-2 sm:col-span-1">
                         <span class="text-slate-400 block">Wilayah Kerja</span>
-                        <strong class="text-cyan-800">RT 01 - RT 05 RW 05</strong>
+                        <strong class="text-cyan-800">RT 01 - RT 08 RW 04</strong>
                     </div>
                 </div>
             </div>
@@ -139,7 +136,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
             </div>
         </section>
 
-        <!-- SECTION: RINGKASAN STATISTIK (5 Indikator Utama) -->
+        <!-- SECTION: RINGKASAN STATISTIK -->
         <section>
             <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
                 <i class="fa-solid fa-chart-line text-emerald-600 mr-2"></i> Ringkasan Statistik Publik
@@ -149,9 +146,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
                 <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 mb-2">
                         <span class="text-xs font-semibold uppercase tracking-wider">Total Balita</span>
-                        <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
-                            <i class="fa-solid fa-baby text-lg"></i>
-                        </div>
+                        <div class="p-2 bg-blue-50 text-blue-600 rounded-lg"><i class="fa-solid fa-baby text-lg"></i></div>
                     </div>
                     <div class="text-2xl sm:text-3xl font-bold text-slate-800" id="statBalita">0</div>
                     <p class="text-[11px] text-slate-400 mt-1"><i class="fa-solid fa-child text-blue-500 mr-1"></i>Usia 0-5 Tahun</p>
@@ -161,9 +156,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
                 <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 mb-2">
                         <span class="text-xs font-semibold uppercase tracking-wider">Balita Sehat</span>
-                        <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
-                            <i class="fa-solid fa-shield-heart text-lg"></i>
-                        </div>
+                        <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fa-solid fa-shield-heart text-lg"></i></div>
                     </div>
                     <div class="text-2xl sm:text-3xl font-bold text-emerald-600" id="statBalitaSehat">0</div>
                     <p class="text-[11px] text-emerald-600 font-medium mt-1" id="statSehatPercent">0% dari Total</p>
@@ -173,9 +166,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
                 <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 mb-2">
                         <span class="text-xs font-semibold uppercase tracking-wider">Kurang Gizi</span>
-                        <div class="p-2 bg-amber-50 text-amber-600 rounded-lg">
-                            <i class="fa-solid fa-triangle-exclamation text-lg"></i>
-                        </div>
+                        <div class="p-2 bg-amber-50 text-amber-600 rounded-lg"><i class="fa-solid fa-triangle-exclamation text-lg"></i></div>
                     </div>
                     <div class="text-2xl sm:text-3xl font-bold text-amber-600" id="statBalitaGizi">0</div>
                     <p class="text-[11px] text-amber-600 font-medium mt-1" id="statGiziPercent">0% Perlu Pemantauan</p>
@@ -185,9 +176,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
                 <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 mb-2">
                         <span class="text-xs font-semibold uppercase tracking-wider">Ibu Hamil</span>
-                        <div class="p-2 bg-rose-50 text-rose-600 rounded-lg">
-                            <i class="fa-solid fa-person-pregnant text-lg"></i>
-                        </div>
+                        <div class="p-2 bg-rose-50 text-rose-600 rounded-lg"><i class="fa-solid fa-person-pregnant text-lg"></i></div>
                     </div>
                     <div class="text-2xl sm:text-3xl font-bold text-slate-800" id="statIbuHamil">0</div>
                     <p class="text-[11px] text-slate-400 mt-1"><i class="fa-solid fa-heart text-rose-500 mr-1"></i>Dalam Perawatan</p>
@@ -197,9 +186,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
                 <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition col-span-2 sm:col-span-1">
                     <div class="flex items-center justify-between text-slate-500 mb-2">
                         <span class="text-xs font-semibold uppercase tracking-wider">Lansia</span>
-                        <div class="p-2 bg-purple-50 text-purple-600 rounded-lg">
-                            <i class="fa-solid fa-person-cane text-lg"></i>
-                        </div>
+                        <div class="p-2 bg-purple-50 text-purple-600 rounded-lg"><i class="fa-solid fa-person-cane text-lg"></i></div>
                     </div>
                     <div class="text-2xl sm:text-3xl font-bold text-slate-800" id="statLansia">0</div>
                     <p class="text-[11px] text-slate-400 mt-1"><i class="fa-solid fa-user-check text-purple-500 mr-1"></i>Pemeriksaan Rutin</p>
@@ -289,7 +276,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-auto">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
-            <p>© Posyandu Mata Air</p>
+            <p>© Posyandu Mata Air - Kalabahi Kota, Kab. Alor</p>
             <div class="flex items-center space-x-3">
                 <span>Pusat Layanan Kesehatan Masyarakat</span>
                 <button onclick="openAdminModal()" class="text-slate-400 hover:text-emerald-600 transition ml-2" title="Akses Admin">
@@ -299,7 +286,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
         </div>
     </footer>
 
-    <!-- MODAL DETAIL PASIEN PUBLIK (POPUP) -->
+    <!-- MODAL DETAIL PASIEN PUBLIK -->
     <div id="modalDetail" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
@@ -319,7 +306,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
         </div>
     </div>
 
-    <!-- MODAL ADMIN (PIN Tersembunyi) -->
+    <!-- MODAL ADMIN -->
     <div id="modalAdmin" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
@@ -341,8 +328,8 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
     </div>
 
     <script>
-        // Data Sampel Awal Peserta Posyandu
-        const sampleData = {
+        // Data Cadangan Saja jika CSV belum disetting
+        const defaultData = {
             balita: [
                 { nama: "Anindya Kirana", ortu: "Ibu Rahma", jk: "Perempuan", umur: 18, bb: 10.2, tb: 80, status: "Balita Sehat", riwayat: "Vaksin DPT 3, Vit A Merah" },
                 { nama: "Muhammad Rayyan", ortu: "Ibu Siti Aisyah", jk: "Laki-laki", umur: 24, bb: 11.5, tb: 86, status: "Balita Sehat", riwayat: "Vaksin MR, Imunisasi Rutin" },
@@ -358,8 +345,62 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
             ]
         };
 
-        // Inisialisasi Tampilan
-        function initData() {
+        let activeData = JSON.parse(JSON.stringify(defaultData));
+        let csvUrl = localStorage.getItem('posyandu_csv_url') || '';
+
+        // Ambil Data CSV dari Google Sheets
+        async function fetchLiveCsv() {
+            if (!csvUrl) {
+                document.getElementById('syncStatus').innerText = "Data Lokal (Belum Terhubung Sheets)";
+                document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-amber-400";
+                renderAll();
+                return;
+            }
+
+            try {
+                document.getElementById('syncStatus').innerText = "Memperbarui...";
+                const res = await fetch(csvUrl);
+                const text = await res.text();
+                parseCsvToData(text);
+                
+                document.getElementById('syncStatus').innerText = "Terhubung (Live CSV)";
+                document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
+            } catch (err) {
+                console.error(err);
+                document.getElementById('syncStatus').innerText = "Gagal Mengambil Data CSV";
+                document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-rose-500";
+                renderAll();
+            }
+        }
+
+        function parseCsvToData(csvText) {
+            const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            if (lines.length < 2) return;
+
+            const parsedBalita = [];
+            for (let i = 1; i < lines.length; i++) {
+                const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
+                if (cols.length >= 2 && cols[0]) {
+                    parsedBalita.push({
+                        nama: cols[0] || 'Tanpa Nama',
+                        ortu: cols[1] || '-',
+                        jk: cols[2] || 'Laki-laki',
+                        umur: cols[3] || '0',
+                        bb: cols[4] || '0',
+                        tb: cols[5] || '0',
+                        status: cols[6] || 'Balita Sehat',
+                        riwayat: cols[7] || 'Pemeriksaan Rutin'
+                    });
+                }
+            }
+
+            if (parsedBalita.length > 0) {
+                activeData.balita = parsedBalita;
+            }
+            renderAll();
+        }
+
+        function renderAll() {
             updateStats();
             renderBalita();
             renderBumil();
@@ -367,15 +408,15 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
         }
 
         function updateStats() {
-            const balitaSehat = sampleData.balita.filter(b => b.status === "Balita Sehat").length;
-            const balitaGizi = sampleData.balita.filter(b => b.status === "Kurang Gizi").length;
-            const totalBalita = sampleData.balita.length;
+            const totalBalita = activeData.balita.length;
+            const balitaSehat = activeData.balita.filter(b => b.status.includes("Sehat")).length;
+            const balitaGizi = activeData.balita.filter(b => b.status.includes("Gizi") || b.status.includes("Kurang")).length;
 
             document.getElementById('statBalita').innerText = totalBalita;
             document.getElementById('statBalitaSehat').innerText = balitaSehat;
             document.getElementById('statBalitaGizi').innerText = balitaGizi;
-            document.getElementById('statIbuHamil').innerText = sampleData.bumil.length;
-            document.getElementById('statLansia').innerText = sampleData.lansia.length;
+            document.getElementById('statIbuHamil').innerText = activeData.bumil.length;
+            document.getElementById('statLansia').innerText = activeData.lansia.length;
 
             document.getElementById('statSehatPercent').innerText = totalBalita > 0 ? Math.round((balitaSehat/totalBalita)*100) + "% dari Total" : "0%";
             document.getElementById('statGiziPercent').innerText = totalBalita > 0 ? Math.round((balitaGizi/totalBalita)*100) + "% Perlu Pemantauan" : "0%";
@@ -384,8 +425,9 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
         function renderBalita() {
             const tbody = document.getElementById('list-balita');
             tbody.innerHTML = '';
-            sampleData.balita.forEach((item, index) => {
-                const badgeColor = item.status === 'Balita Sehat' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800';
+            activeData.balita.forEach((item, index) => {
+                const isSehat = item.status.includes('Sehat');
+                const badgeColor = isSehat ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800';
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('balita', ${index})">
                         <td class="px-5 py-3 font-bold text-slate-800">${item.nama}</td>
@@ -403,7 +445,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
         function renderBumil() {
             const tbody = document.getElementById('list-bumil');
             tbody.innerHTML = '';
-            sampleData.bumil.forEach((item, index) => {
+            activeData.bumil.forEach((item, index) => {
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('bumil', ${index})">
                         <td class="px-5 py-3 font-bold text-slate-800">${item.nama}</td>
@@ -421,7 +463,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
         function renderLansia() {
             const tbody = document.getElementById('list-lansia');
             tbody.innerHTML = '';
-            sampleData.lansia.forEach((item, index) => {
+            activeData.lansia.forEach((item, index) => {
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('lansia', ${index})">
                         <td class="px-5 py-3 font-bold text-slate-800">${item.nama}</td>
@@ -436,11 +478,10 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
             });
         }
 
-        // Tampilkan Modal Detail Pasien (Untuk Umum)
         function showDetail(type, index) {
             const modalBody = document.getElementById('modalDetailBody');
             if(type === 'balita') {
-                const b = sampleData.balita[index];
+                const b = activeData.balita[index];
                 modalBody.innerHTML = `
                     <div class="bg-emerald-50/50 p-3 rounded-xl space-y-1">
                         <p class="text-slate-400">Nama Balita</p>
@@ -460,7 +501,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
                     </div>
                 `;
             } else if(type === 'bumil') {
-                const m = sampleData.bumil[index];
+                const m = activeData.bumil[index];
                 modalBody.innerHTML = `
                     <div class="bg-teal-50/50 p-3 rounded-xl space-y-1">
                         <p class="text-slate-400">Nama Ibu Hamil</p>
@@ -480,7 +521,7 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
                     </div>
                 `;
             } else if(type === 'lansia') {
-                const l = sampleData.lansia[index];
+                const l = activeData.lansia[index];
                 modalBody.innerHTML = `
                     <div class="bg-purple-50/50 p-3 rounded-xl space-y-1">
                         <p class="text-slate-400">Nama Lansia</p>
@@ -503,7 +544,6 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
             document.getElementById('modalDetail').classList.add('hidden');
         }
 
-        // Tab Switching
         function switchTab(tab) {
             ['balita', 'bumil', 'lansia'].forEach(t => {
                 document.getElementById(`tab-${t}`).classList.add('hidden');
@@ -513,21 +553,30 @@ Kecamatan Teluk Mutiara, Kabupaten Alor
             document.getElementById(`tab-btn-${tab}`).className = "px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-emerald-600 text-emerald-600 bg-white";
         }
 
-        // Modal Admin Helper
-        function openAdminModal() { document.getElementById('modalAdmin').classList.remove('hidden'); }
+        function openAdminModal() { 
+            document.getElementById('sheetUrl').value = csvUrl;
+            document.getElementById('modalAdmin').classList.remove('hidden'); 
+        }
         function closeAdminModal() { document.getElementById('modalAdmin').classList.add('hidden'); }
+        
         function saveAdminConfig() {
             const pin = document.getElementById('adminPin').value;
             if(pin === '1234') {
-                alert("Konfigurasi tersimpan. Website terhubung!");
+                const url = document.getElementById('sheetUrl').value.trim();
+                localStorage.setItem('posyandu_csv_url', url);
+                csvUrl = url;
+                alert("Konfigurasi tersimpan. Memperbarui data website...");
                 closeAdminModal();
+                fetchLiveCsv();
             } else {
                 alert("PIN Admin Salah!");
             }
         }
 
-        // Running Load
-        window.onload = initData;
+        window.onload = function() {
+            fetchLiveCsv();
+            setInterval(fetchLiveCsv, 30000); // Otomatis refresh setiap 30 detik
+        };
     </script>
 </body>
 </html>
