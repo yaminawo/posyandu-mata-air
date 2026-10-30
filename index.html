@@ -3,1406 +3,531 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posyandu Digital Mata Air - Layanan Kesehatan Ibu & Anak</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Posyandu Mata Air - Tampilan Informasi Publik</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js CDN untuk Visualisasi KMS dan Statistik -->
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                        },
-                        tealbrand: {
-                            50: '#f0fdfa',
-                            100: '#ccfbf1',
-                            500: '#14b8a6',
-                            600: '#0d9488',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f8fafc;
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #cbd5e1;
-            border-radius: 9999px;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="text-slate-800 flex flex-col min-h-screen">
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Header Navigation -->
-    <header class="bg-white/80 backdrop-blur-md border-b border-emerald-100 sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo & Title -->
+    <!-- Header / Banner Utama -->
+    <header class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div class="flex items-center space-x-3">
-                    <div class="bg-gradient-to-br from-emerald-500 to-teal-600 p-2.5 rounded-xl text-white shadow-md shadow-emerald-200">
-                        <i data-lucide="heart-pulse" class="w-6 h-6"></i>
+                    <div class="p-3 bg-white/10 backdrop-blur-md rounded-2xl">
+                        <i class="fa-solid fa-house-medical text-3xl text-emerald-200"></i>
                     </div>
                     <div>
-                        <h1 class="text-lg font-bold bg-gradient-to-r from-emerald-700 to-teal-700 bg-clip-text text-transparent">Posyandu Digital Mata Air</h1>
-                        <p class="text-xs text-slate-500 font-medium">Sistem Pemantauan Tumbuh Kembang & Kesehatan Ibu Hamil-Menyusui</p>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Posyandu Mata Air</h1>
+                        <p class="text-xs sm:text-sm text-emerald-100 mt-1 flex items-center">
+                            <i class="fa-solid fa-location-dot mr-1.5 text-rose-300"></i>
+                            Jln.Melati NO 08, Rt 08/RW 04, Kelurahan Kalabahi Kota,
+Kecamatan Teluk Mutiara, Kabupaten Alor
+                        </p>
                     </div>
                 </div>
-
-                <!-- Navigation Tabs (Desktop) -->
-                <nav class="hidden md:flex space-x-1 bg-slate-100/80 p-1 rounded-xl">
-                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn flex items-center space-x-2 px-3.5 py-2 text-xs font-semibold rounded-lg transition-all text-emerald-700 bg-white shadow-sm">
-                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-                        <span>Dashboard</span>
-                    </button>
-                    <button onclick="switchTab('balita')" id="nav-balita" class="nav-btn flex items-center space-x-2 px-3.5 py-2 text-xs font-semibold rounded-lg text-slate-600 hover:text-emerald-600 transition-all">
-                        <i data-lucide="baby" class="w-4 h-4"></i>
-                        <span>Data Balita</span>
-                    </button>
-                    <button onclick="switchTab('ibu-hamil')" id="nav-ibu-hamil" class="nav-btn flex items-center space-x-2 px-3.5 py-2 text-xs font-semibold rounded-lg text-slate-600 hover:text-emerald-600 transition-all">
-                        <i data-lucide="user-heart" class="w-4 h-4"></i>
-                        <span>Ibu Hamil</span>
-                    </button>
-                    <button onclick="switchTab('kms')" id="nav-kms" class="nav-btn flex items-center space-x-2 px-3.5 py-2 text-xs font-semibold rounded-lg text-slate-600 hover:text-emerald-600 transition-all">
-                        <i data-lucide="line-chart" class="w-4 h-4"></i>
-                        <span>Grafik KMS</span>
-                    </button>
-                    <button onclick="switchTab('jadwal')" id="nav-jadwal" class="nav-btn flex items-center space-x-2 px-3.5 py-2 text-xs font-semibold rounded-lg text-slate-600 hover:text-emerald-600 transition-all">
-                        <i data-lucide="calendar" class="w-4 h-4"></i>
-                        <span>Jadwal & Imunisasi</span>
-                    </button>
-                </nav>
-
-                <!-- Quick Action Button -->
-                <div class="hidden sm:flex items-center space-x-2">
-                    <button onclick="openModalBalita()" class="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-sm transition-all transform active:scale-95">
-                        <i data-lucide="plus-circle" class="w-4 h-4"></i>
-                        <span>+ Balita Baru</span>
-                    </button>
+                <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl text-xs flex items-center space-x-2 self-start md:self-center">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Status Data: <strong id="syncStatus">Terhubung (Live)</strong></span>
                 </div>
             </div>
-        </div>
-
-        <!-- Mobile Navigation Menu Bar -->
-        <div class="md:hidden border-t border-slate-200 bg-white px-2 py-2 flex justify-around overflow-x-auto text-xs">
-            <button onclick="switchTab('dashboard')" id="mobile-nav-dashboard" class="mobile-nav-btn flex flex-col items-center p-1.5 text-emerald-600 font-semibold">
-                <i data-lucide="layout-dashboard" class="w-5 h-5 mb-0.5"></i>
-                <span class="text-[10px]">Dashboard</span>
-            </button>
-            <button onclick="switchTab('balita')" id="mobile-nav-balita" class="mobile-nav-btn flex flex-col items-center p-1.5 text-slate-500">
-                <i data-lucide="baby" class="w-5 h-5 mb-0.5"></i>
-                <span class="text-[10px]">Balita</span>
-            </button>
-            <button onclick="switchTab('ibu-hamil')" id="mobile-nav-ibu-hamil" class="mobile-nav-btn flex flex-col items-center p-1.5 text-slate-500">
-                <i data-lucide="user-heart" class="w-5 h-5 mb-0.5"></i>
-                <span class="text-[10px]">Ibu Hamil</span>
-            </button>
-            <button onclick="switchTab('kms')" id="mobile-nav-kms" class="mobile-nav-btn flex flex-col items-center p-1.5 text-slate-500">
-                <i data-lucide="line-chart" class="w-5 h-5 mb-0.5"></i>
-                <span class="text-[10px]">Grafik KMS</span>
-            </button>
-            <button onclick="switchTab('jadwal')" id="mobile-nav-jadwal" class="mobile-nav-btn flex flex-col items-center p-1.5 text-slate-500">
-                <i data-lucide="calendar" class="w-5 h-5 mb-0.5"></i>
-                <span class="text-[10px]">Jadwal</span>
-            </button>
         </div>
     </header>
 
-    <!-- Notification Toast Container -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full space-y-8">
 
-    <!-- Main Content Body -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-
-        <!-- SECTION 1: DASHBOARD RINGKASAN -->
-        <section id="section-dashboard" class="tab-content space-y-6">
-            <!-- Banner / Greeting -->
-            <div class="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 rounded-3xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden">
-                <div class="absolute right-0 top-0 opacity-10 translate-x-8 -translate-y-8 pointer-events-none">
-                    <i data-lucide="heart" class="w-72 h-72"></i>
+        <!-- SECTION: PROFIL POSYANDU & ALAMAT LOKASI -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Profil Posyandu -->
+            <div class="md:col-span-2 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                <h2 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
+                    <i class="fa-solid fa-circle-info text-emerald-600 mr-2"></i> Profil Posyandu Mata Air
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Posyandu Mata Air merupakan pusat pelayanan kesehatan terpadu berbasis masyarakat yang berkomitmen memberikan pelayanan gizi, pencegahan stunting, serta pemantauan tumbuh kembang balita, kesehatan ibu hamil, dan lansia secara rutin setiap bulannya.
+                </p>
+                <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+                    <div class="bg-emerald-50 p-3 rounded-xl">
+                        <span class="text-slate-400 block">Jadwal Rutin</span>
+                        <strong class="text-emerald-800">Setiap Tgl 15 Bulan</strong>
+                    </div>
+                    <div class="bg-teal-50 p-3 rounded-xl">
+                        <span class="text-slate-400 block">Jam Operasional</span>
+                        <strong class="text-teal-800">08.00 - 11.30 WIB</strong>
+                    </div>
+                    <div class="bg-cyan-50 p-3 rounded-xl col-span-2 sm:col-span-1">
+                        <span class="text-slate-400 block">Wilayah Kerja</span>
+                        <strong class="text-cyan-800">RT 01 - RT 05 RW 05</strong>
+                    </div>
                 </div>
-                <div class="relative z-10 max-w-2xl">
-                    <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase">Posyandu Digital Mata Air</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold mt-2">Selamat Datang Kader Posyandu</h2>
-                    <p class="mt-2 text-emerald-50 text-sm leading-relaxed">
-                        Pantau kesehatan balita, pendataan ibu hamil, dan histori perkembangan gizi anak secara teratur untuk generasi yang sehat dan bebas stunting.
+            </div>
+
+            <!-- Alamat & Kontak -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-map-location-dot text-rose-500 mr-2"></i> Alamat & Lokasi
+                    </h2>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        <strong>Gedung Posyandu Mata Air</strong><br>
+                        Jl. Melati No. 08, RT 08 / RW 04<br>
+                        Kel. Kalabahi Kota, Kec. Teluk Mutiara, Kab. Alor
                     </p>
                 </div>
-            </div>
-
-            <!-- Stats Overview Cards -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Balita</p>
-                        <h3 id="stat-total-balita" class="text-2xl sm:text-3xl font-extrabold text-slate-800 mt-1">0</h3>
-                        <p class="text-[11px] text-emerald-600 font-medium mt-1 flex items-center"><i data-lucide="arrow-up-right" class="w-3 h-3 mr-0.5"></i> Terdaftar aktif</p>
-                    </div>
-                    <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
-                        <i data-lucide="baby" class="w-7 h-7"></i>
-                    </div>
-                </div>
-
-                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ibu Hamil</p>
-                        <h3 id="stat-total-bumil" class="text-2xl sm:text-3xl font-extrabold text-slate-800 mt-1">0</h3>
-                        <p class="text-[11px] text-teal-600 font-medium mt-1">Dalam pemantauan</p>
-                    </div>
-                    <div class="p-3 bg-teal-50 text-teal-600 rounded-xl">
-                        <i data-lucide="user-heart" class="w-7 h-7"></i>
-                    </div>
-                </div>
-
-                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Gizi Baik</p>
-                        <h3 id="stat-gizi-baik" class="text-2xl sm:text-3xl font-extrabold text-emerald-600 mt-1">0</h3>
-                        <p class="text-[11px] text-slate-500 font-medium mt-1">Sesuai standar BB/U</p>
-                    </div>
-                    <div class="p-3 bg-green-50 text-green-600 rounded-xl">
-                        <i data-lucide="smile" class="w-7 h-7"></i>
-                    </div>
-                </div>
-
-                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Perlu Perhatian</p>
-                        <h3 id="stat-perhatian" class="text-2xl sm:text-3xl font-extrabold text-amber-500 mt-1">0</h3>
-                        <p class="text-[11px] text-amber-600 font-medium mt-1">Kurang/Stunting/Risiko</p>
-                    </div>
-                    <div class="p-3 bg-amber-50 text-amber-500 rounded-xl">
-                        <i data-lucide="alert-triangle" class="w-7 h-7"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Charts & Upcoming Events Row -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Status Gizi Pie/Doughnut Chart -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm lg:col-span-2 flex flex-col">
-                    <div class="flex items-center justify-between mb-4">
-                        <div>
-                            <h3 class="font-bold text-slate-800 text-base">Statistik Status Gizi Balita</h3>
-                            <p class="text-xs text-slate-500">Berdasarkan hasil pengukuran bulan ini</p>
-                        </div>
-                        <span class="text-xs bg-slate-100 px-2.5 py-1 rounded-lg text-slate-600 font-medium">Bulan Ini</span>
-                    </div>
-                    <div class="relative flex-grow flex items-center justify-center min-h-[240px]">
-                        <canvas id="giziChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Agenda Kegiatan Terdekat -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="font-bold text-slate-800 text-base">Kegiatan Mendatang</h3>
-                            <button onclick="switchTab('jadwal')" class="text-xs font-semibold text-emerald-600 hover:underline">Lihat Semua</button>
-                        </div>
-                        <div id="dashboard-agenda-list" class="space-y-3">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-slate-100">
-                        <div class="bg-emerald-50 rounded-xl p-3 flex items-start space-x-3">
-                            <i data-lucide="bell" class="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5"></i>
-                            <p class="text-xs text-emerald-800 leading-relaxed">
-                                Ingatkan orang tua balita 1 hari sebelum jadwal penimbangan rutin melalui SMS/WhatsApp.
-                            </p>
-                        </div>
-                    </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 text-xs space-y-1">
+                    <p class="text-slate-500"><i class="fa-solid fa-phone text-emerald-600 mr-1.5"></i> Kontak Hotline: 0812-3456-7890</p>
+                    <p class="text-slate-500"><i class="fa-solid fa-envelope text-emerald-600 mr-1.5"></i> posyandu.mataair@desa.id</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 2: PENDATAAN BALITA -->
-        <section id="section-balita" class="tab-content hidden space-y-6">
-            <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="relative w-full sm:w-80">
-                    <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                    <input type="text" id="search-balita" oninput="renderBalitaTable()" placeholder="Cari nama balita atau ortu..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all">
+        <!-- SECTION: STRUKTUR KADER POSYANDU -->
+        <section class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
+                <i class="fa-solid fa-users-gear text-emerald-600 mr-2"></i> Tim Kader Posyandu Mata Air
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                    <div class="w-10 h-10 mx-auto bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold mb-2">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <h3 class="font-bold text-xs text-slate-800">Ny. Sesilia T.R. Hayon</h3>
+                    <p class="text-[11px] text-emerald-600 font-medium">Ketua Kader Posyandu</p>
                 </div>
 
-                <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
-                    <select id="filter-gizi" onchange="renderBalitaTable()" class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium text-slate-600">
-                        <option value="ALL">Semua Status Gizi</option>
-                        <option value="Gizi Baik">Gizi Baik</option>
-                        <option value="Perlu Perhatian">Perlu Perhatian / Stunting</option>
-                    </select>
-                    <button onclick="openModalBalita()" class="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition-all whitespace-nowrap">
-                        <i data-lucide="plus" class="w-4 h-4"></i>
-                        <span>Tambah Balita</span>
-                    </button>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                    <div class="w-10 h-10 mx-auto bg-teal-100 text-teal-700 rounded-full flex items-center justify-center font-bold mb-2">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </div>
+                    <h3 class="font-bold text-xs text-slate-800">Ny. Clarissa Dewi</h3>
+                    <p class="text-[11px] text-teal-600 font-medium">Sekretaris</p>
                 </div>
-            </div>
 
-            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-                <div class="overflow-x-auto custom-scrollbar">
-                    <table class="w-full text-left text-xs">
-                        <thead class="bg-slate-50 text-slate-500 font-semibold uppercase border-b border-slate-100">
-                            <tr>
-                                <th class="px-5 py-3.5">Nama Balita / Ortu</th>
-                                <th class="px-5 py-3.5">JK / Umur</th>
-                                <th class="px-5 py-3.5">Pengukuran Terakhir</th>
-                                <th class="px-5 py-3.5">Status Gizi</th>
-                                <th class="px-5 py-3.5">Vaksin / Vitamin Terakhir</th>
-                                <th class="px-5 py-3.5 text-right">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-balita-body" class="divide-y divide-slate-100 text-slate-700">
-                            <!-- Populated dynamically -->
-                        </tbody>
-                    </table>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                    <div class="w-10 h-10 mx-auto bg-cyan-100 text-cyan-700 rounded-full flex items-center justify-center font-bold mb-2">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <h3 class="font-bold text-xs text-slate-800">Ny. Nurul Hidayah</h3>
+                    <p class="text-[11px] text-cyan-600 font-medium">Bendahara</p>
                 </div>
-                <div id="empty-balita-state" class="hidden p-8 text-center text-slate-400">
-                    <i data-lucide="inbox" class="w-10 h-10 mx-auto mb-2 text-slate-300"></i>
-                    <p class="font-medium">Tidak ada data balita ditemukan</p>
+
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                    <div class="w-10 h-10 mx-auto bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold mb-2">
+                        <i class="fa-solid fa-weight-scale"></i>
+                    </div>
+                    <h3 class="font-bold text-xs text-slate-800">Ny. Rina Kartika</h3>
+                    <p class="text-[11px] text-blue-600 font-medium">Kader Penimbangan Balita</p>
+                </div>
+
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center col-span-2 sm:col-span-1">
+                    <div class="w-10 h-10 mx-auto bg-purple-100 text-purple-700 rounded-full flex items-center justify-center font-bold mb-2">
+                        <i class="fa-solid fa-hand-holding-medical"></i>
+                    </div>
+                    <h3 class="font-bold text-xs text-slate-800">Ny. Budi Astuti</h3>
+                    <p class="text-[11px] text-purple-600 font-medium">Kader Lansia & Gizi</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 3: PENDATAAN IBU HAMIL -->
-        <section id="section-ibu-hamil" class="tab-content hidden space-y-6">
-            <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="relative w-full sm:w-80">
-                    <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                    <input type="text" id="search-bumil" oninput="renderBumilTable()" placeholder="Cari nama ibu hamil..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+        <!-- SECTION: RINGKASAN STATISTIK (5 Indikator Utama) -->
+        <section>
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
+                <i class="fa-solid fa-chart-line text-emerald-600 mr-2"></i> Ringkasan Statistik Publik
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <!-- Total Balita -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between text-slate-500 mb-2">
+                        <span class="text-xs font-semibold uppercase tracking-wider">Total Balita</span>
+                        <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                            <i class="fa-solid fa-baby text-lg"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl sm:text-3xl font-bold text-slate-800" id="statBalita">0</div>
+                    <p class="text-[11px] text-slate-400 mt-1"><i class="fa-solid fa-child text-blue-500 mr-1"></i>Usia 0-5 Tahun</p>
                 </div>
-                <button onclick="openModalBumil()" class="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-700 shadow-sm transition-all">
-                    <i data-lucide="plus" class="w-4 h-4"></i>
-                    <span>Tambah Data Ibu Hamil</span>
-                </button>
+
+                <!-- Balita Sehat -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between text-slate-500 mb-2">
+                        <span class="text-xs font-semibold uppercase tracking-wider">Balita Sehat</span>
+                        <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
+                            <i class="fa-solid fa-shield-heart text-lg"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl sm:text-3xl font-bold text-emerald-600" id="statBalitaSehat">0</div>
+                    <p class="text-[11px] text-emerald-600 font-medium mt-1" id="statSehatPercent">0% dari Total</p>
+                </div>
+
+                <!-- Balita Kurang Gizi -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between text-slate-500 mb-2">
+                        <span class="text-xs font-semibold uppercase tracking-wider">Kurang Gizi</span>
+                        <div class="p-2 bg-amber-50 text-amber-600 rounded-lg">
+                            <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl sm:text-3xl font-bold text-amber-600" id="statBalitaGizi">0</div>
+                    <p class="text-[11px] text-amber-600 font-medium mt-1" id="statGiziPercent">0% Perlu Pemantauan</p>
+                </div>
+
+                <!-- Ibu Hamil -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between text-slate-500 mb-2">
+                        <span class="text-xs font-semibold uppercase tracking-wider">Ibu Hamil</span>
+                        <div class="p-2 bg-rose-50 text-rose-600 rounded-lg">
+                            <i class="fa-solid fa-person-pregnant text-lg"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl sm:text-3xl font-bold text-slate-800" id="statIbuHamil">0</div>
+                    <p class="text-[11px] text-slate-400 mt-1"><i class="fa-solid fa-heart text-rose-500 mr-1"></i>Dalam Perawatan</p>
+                </div>
+
+                <!-- Lansia -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition col-span-2 sm:col-span-1">
+                    <div class="flex items-center justify-between text-slate-500 mb-2">
+                        <span class="text-xs font-semibold uppercase tracking-wider">Lansia</span>
+                        <div class="p-2 bg-purple-50 text-purple-600 rounded-lg">
+                            <i class="fa-solid fa-person-cane text-lg"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl sm:text-3xl font-bold text-slate-800" id="statLansia">0</div>
+                    <p class="text-[11px] text-slate-400 mt-1"><i class="fa-solid fa-user-check text-purple-500 mr-1"></i>Pemeriksaan Rutin</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: DAFTAR TABEL PASIEN PUBLIK -->
+        <section class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-bold text-slate-800 flex items-center">
+                    <i class="fa-solid fa-users text-emerald-600 mr-2"></i> Daftar Peserta Posyandu Mata Air
+                </h2>
+                <span class="text-xs text-slate-500">*Klik pada nama peserta untuk melihat rincian riwayat kesehatan</span>
             </div>
 
-            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-                <div class="overflow-x-auto custom-scrollbar">
+            <!-- Tab Navigasi Publik -->
+            <div class="flex space-x-2 border-b border-slate-200">
+                <button onclick="switchTab('balita')" id="tab-btn-balita" class="px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-emerald-600 text-emerald-600 bg-white">Data Balita</button>
+                <button onclick="switchTab('bumil')" id="tab-btn-bumil" class="px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-emerald-600">Ibu Hamil</button>
+                <button onclick="switchTab('lansia')" id="tab-btn-lansia" class="px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-emerald-600">Lansia</button>
+            </div>
+
+            <!-- Tabel Balita -->
+            <div id="tab-balita" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
                     <table class="w-full text-left text-xs">
-                        <thead class="bg-slate-50 text-slate-500 font-semibold uppercase border-b border-slate-100">
+                        <thead class="bg-slate-50 text-slate-500 font-semibold uppercase border-b border-slate-200">
                             <tr>
-                                <th class="px-5 py-3.5">Nama Ibu & Usia</th>
-                                <th class="px-5 py-3.5">Usia Kehamilan</th>
-                                <th class="px-5 py-3.5">BB (kg) & TD (mmHg)</th>
-                                <th class="px-5 py-3.5">Suplemen Fe / Vaksin TT</th>
-                                <th class="px-5 py-3.5">Alamat / Kontak</th>
-                                <th class="px-5 py-3.5 text-right">Aksi</th>
+                                <th class="px-5 py-3">Nama Balita</th>
+                                <th class="px-5 py-3">Orang Tua</th>
+                                <th class="px-5 py-3">JK / Usia</th>
+                                <th class="px-5 py-3">Status Gizi</th>
+                                <th class="px-5 py-3 text-right">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="table-bumil-body" class="divide-y divide-slate-100 text-slate-700">
-                            <!-- Populated dynamically -->
+                        <tbody id="list-balita" class="divide-y divide-slate-100 text-slate-700">
+                            <!-- Populated via JS -->
                         </tbody>
                     </table>
                 </div>
             </div>
-        </section>
 
-        <!-- SECTION 4: GRAFIK KMS -->
-        <section id="section-kms" class="tab-content hidden space-y-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
-                    <div>
-                        <h2 class="text-lg font-bold text-slate-800">Kartu Menuju Sehat (KMS) Digital</h2>
-                        <p class="text-xs text-slate-500 mt-0.5">Grafik pertumbuhan Berat Badan (BB) dan Tinggi Badan (TB) anak</p>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <label for="kms-select-balita" class="text-xs font-medium text-slate-600">Pilih Anak:</label>
-                        <select id="kms-select-balita" onchange="loadKmsChart()" class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 min-w-[200px]">
-                            <!-- Options filled dynamically -->
-                        </select>
-                    </div>
-                </div>
-
-                <div id="kms-child-info" class="mt-6 bg-slate-50 p-4 rounded-xl grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-                    <!-- Populated dynamically -->
-                </div>
-
-                <div class="mt-6 bg-white p-4 rounded-xl border border-slate-100 relative h-80 sm:h-96">
-                    <canvas id="kmsChart"></canvas>
-                </div>
-
-                <div class="mt-8">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="font-bold text-slate-800 text-sm">Riwayat Penimbangan & Imunisasi</h3>
-                        <button id="btn-add-pemeriksaan" onclick="openModalPemeriksaan()" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-all">
-                            + Catat Penimbangan Baru
-                        </button>
-                    </div>
-                    <div class="overflow-x-auto rounded-xl border border-slate-100">
-                        <table class="w-full text-left text-xs">
-                            <thead class="bg-slate-50 text-slate-500 font-semibold uppercase border-b border-slate-100">
-                                <tr>
-                                    <th class="px-4 py-3">Tanggal</th>
-                                    <th class="px-4 py-3">Berat (kg)</th>
-                                    <th class="px-4 py-3">Tinggi (cm)</th>
-                                    <th class="px-4 py-3">Lingkar Kepala (cm)</th>
-                                    <th class="px-4 py-3">Status Gizi (BB/U)</th>
-                                    <th class="px-4 py-3">Imunisasi / Vitamin</th>
-                                </tr>
-                            </thead>
-                            <tbody id="kms-history-table" class="divide-y divide-slate-100">
-                                <!-- Populated dynamically -->
-                            </tbody>
-                        </table>
-                    </div>
+            <!-- Tabel Ibu Hamil -->
+            <div id="tab-bumil" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-50 text-slate-500 font-semibold uppercase border-b border-slate-200">
+                            <tr>
+                                <th class="px-5 py-3">Nama Ibu</th>
+                                <th class="px-5 py-3">Usia Ibu</th>
+                                <th class="px-5 py-3">Usia Kandungan</th>
+                                <th class="px-5 py-3">Tekanan Darah</th>
+                                <th class="px-5 py-3 text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="list-bumil" class="divide-y divide-slate-100 text-slate-700">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </section>
 
-        <!-- SECTION 5: JADWAL & IMUNISASI -->
-        <section id="section-jadwal" class="tab-content hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-                <div class="lg:col-span-2 space-y-4">
-                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
-                        <div>
-                            <h2 class="text-base font-bold text-slate-800">Jadwal Kegiatan Posyandu Bulan Ini</h2>
-                            <p class="text-xs text-slate-500">Jadwal penimbangan, PMT, dan penyuluhan rutin</p>
-                        </div>
-                        <button onclick="openModalJadwal()" class="px-3 py-2 bg-emerald-600 text-white rounded-xl text-xs font-medium hover:bg-emerald-700 transition-all">+ Tambah Agenda</button>
-                    </div>
-
-                    <div id="jadwal-list-container" class="space-y-3">
-                        <!-- Populated dynamically -->
-                    </div>
+            <!-- Tabel Lansia -->
+            <div id="tab-lansia" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-50 text-slate-500 font-semibold uppercase border-b border-slate-200">
+                            <tr>
+                                <th class="px-5 py-3">Nama Lansia</th>
+                                <th class="px-5 py-3">Usia</th>
+                                <th class="px-5 py-3">Tekanan Darah</th>
+                                <th class="px-5 py-3">Status Pemeriksaan</th>
+                                <th class="px-5 py-3 text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="list-lansia" class="divide-y divide-slate-100 text-slate-700">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
                 </div>
-
-                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-4">
-                    <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
-                        <i data-lucide="shield-check" class="w-5 h-5 text-emerald-600"></i>
-                        <h3 class="font-bold text-slate-800 text-sm">Jadwal Imunisasi Wajib Kemenkes</h3>
-                    </div>
-                    <div class="space-y-3 text-xs custom-scrollbar max-h-[500px] overflow-y-auto pr-1">
-                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                            <span class="font-bold text-emerald-700">Usia 0 Bulan</span>
-                            <p class="font-semibold text-slate-800 mt-1">Hepatitis B (HB-0)</p>
-                            <p class="text-[11px] text-slate-500 mt-0.5">Mencegah penularan Hepatitis B saat persalinan.</p>
-                        </div>
-                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                            <span class="font-bold text-emerald-700">Usia 1 Bulan</span>
-                            <p class="font-semibold text-slate-800 mt-1">BCG & Polio 1</p>
-                            <p class="text-[11px] text-slate-500 mt-0.5">Mencegah penyakit TBC dan kelumpuhan polio.</p>
-                        </div>
-                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                            <span class="font-bold text-emerald-700">Usia 2 Bulan</span>
-                            <p class="font-semibold text-slate-800 mt-1">DPT-HB-Hib 1 & Polio 2</p>
-                            <p class="text-[11px] text-slate-500 mt-0.5">Mencegah Difteri, Pertusis, Tetanus, Hepatitis, Meningitis.</p>
-                        </div>
-                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                            <span class="font-bold text-emerald-700">Usia 3 Bulan</span>
-                            <p class="font-semibold text-slate-800 mt-1">DPT-HB-Hib 2 & Polio 3</p>
-                            <p class="text-[11px] text-slate-500 mt-0.5">Dosis lanjutan kekebalan dasar.</p>
-                        </div>
-                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                            <span class="font-bold text-emerald-700">Usia 4 Bulan</span>
-                            <p class="font-semibold text-slate-800 mt-1">DPT-HB-Hib 3, Polio 4 & IPV</p>
-                            <p class="text-[11px] text-slate-500 mt-0.5">Vaksin polio suntik dan lanjutan DPT.</p>
-                        </div>
-                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                            <span class="font-bold text-emerald-700">Usia 9 Bulan</span>
-                            <p class="font-semibold text-slate-800 mt-1">Campak / MR (Measles Rubella)</p>
-                            <p class="text-[11px] text-slate-500 mt-0.5">Mencegah penyakit Campak dan Rubella.</p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </section>
 
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500">
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-auto">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
-            <p>© Sistem Kesehatan Terpadu.</p>
-            <div class="flex items-center space-x-4">
-                <span class="hover:text-emerald-600 cursor-pointer" onclick="resetToDefaultData()">Reset Data Contoh</span>
-                <span>•</span>
-                <span>Standar Kemenkes RI</span>
+            <p>© Posyandu Mata Air - Jl. Mata Air No. 12, RT 03/RW 05 Desa Sekar Wangi</p>
+            <div class="flex items-center space-x-3">
+                <span>Pusat Layanan Kesehatan Masyarakat</span>
+                <button onclick="openAdminModal()" class="text-slate-400 hover:text-emerald-600 transition ml-2" title="Akses Admin">
+                    <i class="fa-solid fa-lock"></i>
+                </button>
             </div>
         </div>
     </footer>
 
-    <!-- MODALS -->
-
-    <!-- Modal 1: Pendaftaran Balita -->
-    <div id="modal-balita" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative transform transition-all">
+    <!-- MODAL DETAIL PASIEN PUBLIK (POPUP) -->
+    <div id="modalDetail" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                <h3 class="font-bold text-slate-800 text-base" id="modal-balita-title">Form Pendaftaran Balita Baru</h3>
-                <button onclick="closeModalBalita()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+                <h3 class="font-bold text-slate-800 text-base flex items-center">
+                    <i class="fa-solid fa-id-card text-emerald-600 mr-2"></i> Rincian Data Peserta
+                </h3>
+                <button onclick="closeModalDetail()" class="text-slate-400 hover:text-slate-600 p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
             </div>
-            <form id="form-balita" onsubmit="saveBalita(event)" class="space-y-3.5 mt-4 text-xs">
-                <input type="hidden" id="balita-id">
-                <div>
-                    <label class="font-semibold text-slate-700">Nama Lengkap Anak</label>
-                    <input type="text" id="balita-nama" required placeholder="Contoh: Anindya Putri" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="font-semibold text-slate-700">Jenis Kelamin</label>
-                        <select id="balita-jk" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                            <option value="Laki-laki">Laki-laki</option>
-                            <option value="Perempuan">Perempuan</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="font-semibold text-slate-700">Tanggal Lahir</label>
-                        <input type="date" id="balita-tgllahir" required class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                    </div>
-                </div>
-                <div>
-                    <label class="font-semibold text-slate-700">Nama Orang Tua / Wali</label>
-                    <input type="text" id="balita-ortu" required placeholder="Contoh: Ibu Rina / Bapak Budi" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                </div>
-                <div>
-                    <label class="font-semibold text-slate-700">Alamat Rumah</label>
-                    <textarea id="balita-alamat" rows="2" placeholder="Jl. Melati No. 12 RW 04" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
-                </div>
-                <div class="pt-3 flex justify-end space-x-2">
-                    <button type="button" onclick="closeModalBalita()" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 font-semibold hover:bg-slate-50">Batal</button>
-                    <button type="submit" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-sm">Simpan Data</button>
-                </div>
-            </form>
+            <div id="modalDetailBody" class="mt-4 text-xs space-y-4">
+                <!-- Data Detail Dinamis Disini -->
+            </div>
+            <div class="mt-6 pt-3 border-t border-slate-100 flex justify-end">
+                <button onclick="closeModalDetail()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold">Tutup</button>
+            </div>
         </div>
     </div>
 
-    <!-- Modal 2: Catat Penimbangan / Pengukuran Baru -->
-    <div id="modal-pemeriksaan" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <!-- MODAL ADMIN (PIN Tersembunyi) -->
+    <div id="modalAdmin" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                <h3 class="font-bold text-slate-800 text-base">Pencatatan Penimbangan Bulanan</h3>
-                <button onclick="closeModalPemeriksaan()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+                <h3 class="font-bold text-slate-800 text-base">Akses Khusus Admin</h3>
+                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <form id="form-pemeriksaan" onsubmit="savePemeriksaan(event)" class="space-y-3.5 mt-4 text-xs">
-                <input type="hidden" id="pem-balita-id">
+            <div class="space-y-4 mt-4 text-xs">
                 <div>
-                    <label class="font-semibold text-slate-700">Tanggal Pengukuran</label>
-                    <input type="date" id="pem-tanggal" required class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <div>
-                        <label class="font-semibold text-slate-700">Berat (kg)</label>
-                        <input type="number" step="0.1" id="pem-bb" required placeholder="8.5" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="font-semibold text-slate-700">Tinggi (cm)</label>
-                        <input type="number" step="0.1" id="pem-tb" required placeholder="72.0" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="font-semibold text-slate-700">L. Kepala (cm)</label>
-                        <input type="number" step="0.1" id="pem-lk" placeholder="42" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                    </div>
+                    <label class="font-semibold text-slate-700">Masukkan PIN Admin:</label>
+                    <input type="password" id="adminPin" placeholder="PIN Default: 1234" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                 </div>
                 <div>
-                    <label class="font-semibold text-slate-700">Imunisasi / Vitamin Yang Diberikan</label>
-                    <input type="text" id="pem-catatan" placeholder="Misal: Vitamin A Merah, DPT-HB-Hib 3" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <label class="font-semibold text-slate-700">URL Spreadsheet CSV:</label>
+                    <input type="text" id="sheetUrl" placeholder="https://docs.google.com/.../pub?output=csv" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                 </div>
-                <div class="pt-3 flex justify-end space-x-2">
-                    <button type="button" onclick="closeModalPemeriksaan()" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 font-semibold">Batal</button>
-                    <button type="submit" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-sm">Catat Pengukuran</button>
-                </div>
-            </form>
+                <button onclick="saveAdminConfig()" class="w-full py-2.5 bg-emerald-600 text-white font-bold rounded-xl shadow hover:bg-emerald-700 transition">Simpan Konfigurasi</button>
+            </div>
         </div>
     </div>
 
-    <!-- Modal 3: Pendataan Ibu Hamil -->
-    <div id="modal-bumil" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                <h3 class="font-bold text-slate-800 text-base" id="modal-bumil-title">Pendataan Ibu Hamil</h3>
-                <button onclick="closeModalBumil()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
-            </div>
-            <form id="form-bumil" onsubmit="saveBumil(event)" class="space-y-3.5 mt-4 text-xs">
-                <input type="hidden" id="bumil-id">
-                <div>
-                    <label class="font-semibold text-slate-700">Nama Ibu Hamil</label>
-                    <input type="text" id="bumil-nama" required placeholder="Contoh: Ny. Siti Rahma" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:outline-none">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="font-semibold text-slate-700">Usia Ibu (Tahun)</label>
-                        <input type="number" id="bumil-usia" required placeholder="28" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="font-semibold text-slate-700">Usia Kandungan (Minggu)</label>
-                        <input type="number" id="bumil-uk" required placeholder="16" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:outline-none">
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="font-semibold text-slate-700">Berat Badan (kg)</label>
-                        <input type="number" step="0.1" id="bumil-bb" placeholder="58.5" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="font-semibold text-slate-700">Tekanan Darah (mmHg)</label>
-                        <input type="text" id="bumil-td" placeholder="120/80" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:outline-none">
-                    </div>
-                </div>
-                <div>
-                    <label class="font-semibold text-slate-700">Catatan Suplemen Fe / Vaksin TT</label>
-                    <input type="text" id="bumil-catatan" placeholder="Tablet Tambah Darah 30, TT2" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:outline-none">
-                </div>
-                <div>
-                    <label class="font-semibold text-slate-700">Alamat / Nomor Telepon</label>
-                    <input type="text" id="bumil-kontak" placeholder="RW 04 / 0812345678" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:outline-none">
-                </div>
-                <div class="pt-3 flex justify-end space-x-2">
-                    <button type="button" onclick="closeModalBumil()" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 font-semibold">Batal</button>
-                    <button type="submit" class="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold shadow-sm">Simpan Data Ibu</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal 4: Tambah Agenda Jadwal -->
-    <div id="modal-jadwal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                <h3 class="font-bold text-slate-800 text-base">Tambah Agenda Posyandu</h3>
-                <button onclick="closeModalJadwal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
-            </div>
-            <form id="form-jadwal" onsubmit="saveJadwal(event)" class="space-y-3.5 mt-4 text-xs">
-                <div>
-                    <label class="font-semibold text-slate-700">Judul Kegiatan</label>
-                    <input type="text" id="jadwal-judul" required placeholder="Penimbangan Rutin & Makanan Tambahan" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="font-semibold text-slate-700">Tanggal</label>
-                        <input type="date" id="jadwal-tanggal" required class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="font-semibold text-slate-700">Waktu</label>
-                        <input type="text" id="jadwal-waktu" placeholder="08.00 - 11.00 WITA" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                    </div>
-                </div>
-                <div>
-                    <label class="font-semibold text-slate-700">Lokasi Posyandu</label>
-                    <input type="text" id="jadwal-lokasi" placeholder="Posyandu Mata Air" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                </div>
-                <div>
-                    <label class="font-semibold text-slate-700">Keterangan / PMT</label>
-                    <textarea id="jadwal-ket" rows="2" placeholder="Menu PMT: Bubur Kacang Hijau & Telur Rebus" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
-                </div>
-                <div class="pt-3 flex justify-end space-x-2">
-                    <button type="button" onclick="closeModalJadwal()" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 font-semibold">Batal</button>
-                    <button type="submit" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-sm">Simpan Agenda</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // --- DATA INITIALIZATION & DUMMY DATA ---
-        const DEFAULT_BALITA = [
-            {
-                id: "B001",
-                nama: "Anindya Kirana",
-                jk: "Perempuan",
-                tglLahir: "2024-05-10",
-                ortu: "Ibu Rahma / Bp. Anton",
-                alamat: "Jl. Melati No. 14 RW 04",
-                riwayat: [
-                    { tanggal: "2024-06-10", bb: 3.8, tb: 52, lk: 36, catatan: "BCG & Polio 1" },
-                    { tanggal: "2024-09-10", bb: 6.2, tb: 61, lk: 40, catatan: "DPT 1" },
-                    { tanggal: "2025-01-15", bb: 8.5, tb: 69, lk: 43, catatan: "Vit A Merah" },
-                    { tanggal: "2026-02-10", bb: 11.2, tb: 82, lk: 46, catatan: "Penimbangan Rutin" }
-                ]
-            },
-            {
-                id: "B002",
-                nama: "Muhammad Rayyan",
-                jk: "Laki-laki",
-                tglLahir: "2023-11-20",
-                ortu: "Ibu Siti Aisyah",
-                alamat: "Gg. Melati 2 No. 8",
-                riwayat: [
-                    { tanggal: "2024-05-10", bb: 7.0, tb: 65, lk: 41, catatan: "Polio 3" },
-                    { tanggal: "2024-11-20", bb: 9.1, tb: 75, lk: 44, catatan: "Campak MR" },
-                    { tanggal: "2026-02-10", bb: 10.8, tb: 85, lk: 46.5, catatan: "Penimbangan Rutin" }
-                ]
-            },
-            {
-                id: "B003",
-                nama: "Daffa Ibnu",
-                jk: "Laki-laki",
-                tglLahir: "2024-08-15",
-                ortu: "Ibu Dewi / Bp. Hasan",
-                alamat: "Jl. Anggrek No. 03",
-                riwayat: [
-                    { tanggal: "2024-10-15", bb: 4.8, tb: 56, lk: 38, catatan: "DPT 1" },
-                    { tanggal: "2026-01-10", bb: 7.2, tb: 66, lk: 42, catatan: "Perlu perhatian gizi" }
-                ]
-            }
-        ];
+        // Data Sampel Awal Peserta Posyandu
+        const sampleData = {
+            balita: [
+                { nama: "Anindya Kirana", ortu: "Ibu Rahma", jk: "Perempuan", umur: 18, bb: 10.2, tb: 80, status: "Balita Sehat", riwayat: "Vaksin DPT 3, Vit A Merah" },
+                { nama: "Muhammad Rayyan", ortu: "Ibu Siti Aisyah", jk: "Laki-laki", umur: 24, bb: 11.5, tb: 86, status: "Balita Sehat", riwayat: "Vaksin MR, Imunisasi Rutin" },
+                { nama: "Daffa Ibnu", ortu: "Ibu Dewi", jk: "Laki-laki", umur: 12, bb: 7.1, tb: 68, status: "Kurang Gizi", riwayat: "Pendampingan PMT 3 Bulan" }
+            ],
+            bumil: [
+                { nama: "Ny. Clarissa Dewi", usia: 27, uk: 22, bb: 61.5, td: "115/75", catatan: "Suplemen Fe 30 Tablet, TT3" },
+                { nama: "Ny. Nurul Hidayah", usia: 31, uk: 34, bb: 68.0, td: "125/80", catatan: "Kondisi Sehat, Persiapan Melahirkan" }
+            ],
+            lansia: [
+                { nama: "Mbah Sastro", usia: 68, td: "130/85", gula: 110, asamUrat: 6.1, status: "Kesehatan Baik" },
+                { nama: "Nenek Aminah", usia: 72, td: "140/90", gula: 135, asamUrat: 5.8, status: "Perlu Cek Tekanan Darah" }
+            ]
+        };
 
-        const DEFAULT_BUMIL = [
-            {
-                id: "M001",
-                nama: "Ny. Clarissa Dewi",
-                usia: 27,
-                uk: 22,
-                bb: 61.5,
-                td: "115/75",
-                catatan: "TT3, Fe 30 Tablet",
-                kontak: "RT 04 / RW 04 - 0812988374"
-            },
-            {
-                id: "M002",
-                nama: "Ny. Nurul Hidayah",
-                usia: 31,
-                uk: 34,
-                bb: 68.0,
-                td: "125/80",
-                catatan: "Persiapan persalinan, Fe Cukup",
-                kontak: "RT 05 / RW 04 - 0857129983"
-            }
-        ];
-
-        const DEFAULT_JADWAL = [
-            {
-                id: "J001",
-                judul: "Penimbangan Rutin & Pemberian Makanan Tambahan (PMT)",
-                tanggal: "2026-10-15",
-                waktu: "08:30 - 11:30 WITA",
-                lokasi: "Posyandu Mata Air",
-                ket: "Menu PMT: Sup Telur Puyuh + Buah Pisang"
-            },
-            {
-                id: "J002",
-                judul: "Bulan Timbang & Pemberian Vitamin A Capsul",
-                tanggal: "2026-03-25",
-                waktu: "08:00 - 12:00 WITA",
-                lokasi: "Posyandu Mata Air",
-                ket: "Wajib membawa buku KIA / KMS Balita"
-            }
-        ];
-
-        // Global State
-        let balitaData = [];
-        let bumilData = [];
-        let jadwalData = [];
-        let activeKmsBalitaId = null;
-        let giziChartInstance = null;
-        let kmsChartInstance = null;
-
-        function refreshIcons() {
-            if (typeof lucide !== 'undefined' && lucide.createIcons) {
-                setTimeout(() => lucide.createIcons(), 50);
-            }
+        // Inisialisasi Tampilan
+        function initData() {
+            updateStats();
+            renderBalita();
+            renderBumil();
+            renderLansia();
         }
 
-        // Load or Store LocalStorage
-        function initApp() {
-            if (!localStorage.getItem('posyandu_balita')) {
-                localStorage.setItem('posyandu_balita', JSON.stringify(DEFAULT_BALITA));
-            }
-            if (!localStorage.getItem('posyandu_bumil')) {
-                localStorage.setItem('posyandu_bumil', JSON.stringify(DEFAULT_BUMIL));
-            }
-            if (!localStorage.getItem('posyandu_jadwal')) {
-                localStorage.setItem('posyandu_jadwal', JSON.stringify(DEFAULT_JADWAL));
-            }
+        function updateStats() {
+            const balitaSehat = sampleData.balita.filter(b => b.status === "Balita Sehat").length;
+            const balitaGizi = sampleData.balita.filter(b => b.status === "Kurang Gizi").length;
+            const totalBalita = sampleData.balita.length;
 
-            balitaData = JSON.parse(localStorage.getItem('posyandu_balita'));
-            bumilData = JSON.parse(localStorage.getItem('posyandu_bumil'));
-            jadwalData = JSON.parse(localStorage.getItem('posyandu_jadwal'));
+            document.getElementById('statBalita').innerText = totalBalita;
+            document.getElementById('statBalitaSehat').innerText = balitaSehat;
+            document.getElementById('statBalitaGizi').innerText = balitaGizi;
+            document.getElementById('statIbuHamil').innerText = sampleData.bumil.length;
+            document.getElementById('statLansia').innerText = sampleData.lansia.length;
 
-            if (balitaData.length > 0) {
-                activeKmsBalitaId = balitaData[0].id;
-            }
-
-            updateDashboardStats();
-            renderBalitaTable();
-            renderBumilTable();
-            renderJadwalList();
-            populateKmsDropdown();
-            initGiziChart();
-            refreshIcons();
+            document.getElementById('statSehatPercent').innerText = totalBalita > 0 ? Math.round((balitaSehat/totalBalita)*100) + "% dari Total" : "0%";
+            document.getElementById('statGiziPercent').innerText = totalBalita > 0 ? Math.round((balitaGizi/totalBalita)*100) + "% Perlu Pemantauan" : "0%";
         }
 
-        // --- NAVIGATION CONTROLLER ---
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            const activeSection = document.getElementById(`section-${tabId}`);
-            if (activeSection) activeSection.classList.remove('hidden');
-
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-emerald-700', 'bg-white', 'shadow-sm');
-                btn.classList.add('text-slate-600');
-            });
-            const activeNav = document.getElementById(`nav-${tabId}`);
-            if (activeNav) {
-                activeNav.classList.add('text-emerald-700', 'bg-white', 'shadow-sm');
-                activeNav.classList.remove('text-slate-600');
-            }
-
-            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
-                btn.classList.remove('text-emerald-600', 'font-semibold');
-                btn.classList.add('text-slate-500');
-            });
-            const activeMobileNav = document.getElementById(`mobile-nav-${tabId}`);
-            if (activeMobileNav) {
-                activeMobileNav.classList.add('text-emerald-600', 'font-semibold');
-                activeMobileNav.classList.remove('text-slate-500');
-            }
-
-            if (tabId === 'kms') {
-                setTimeout(loadKmsChart, 100);
-            }
-            refreshIcons();
-        }
-
-        // --- UTILITY CALCULATIONS ---
-        function calculateAgeMonths(birthDateStr) {
-            if (!birthDateStr) return 0;
-            const birth = new Date(birthDateStr);
-            const now = new Date();
-            let months = (now.getFullYear() - birth.getFullYear()) * 12;
-            months -= birth.getMonth();
-            months += now.getMonth();
-            return months <= 0 ? 0 : months;
-        }
-
-        // Penilaian Status Gizi Sederhana Berdasarkan Standar WHO/Kemenkes
-        function evaluateStatusGizi(bb, tb, umurBulan) {
-            if (!bb || bb === 0) return { status: 'Belum Diukur', class: 'bg-slate-100 text-slate-600' };
-
-            let idealBb = 3.3;
-            if (umurBulan <= 12) {
-                idealBb = 3.3 + (umurBulan * 0.5);
-            } else if (umurBulan <= 24) {
-                idealBb = 9.0 + ((umurBulan - 12) * 0.25);
-            } else {
-                idealBb = 12.0 + ((umurBulan - 24) * 0.15);
-            }
-
-            let rasio = bb / idealBb;
-
-            if (rasio >= 0.82 && rasio <= 1.25) {
-                return { status: 'Gizi Baik', class: 'bg-emerald-100 text-emerald-800' };
-            } else if (rasio < 0.82 && rasio >= 0.70) {
-                return { status: 'Perlu Perhatian', class: 'bg-amber-100 text-amber-800' };
-            } else if (rasio < 0.70) {
-                return { status: 'Stunting / Kurang', class: 'bg-rose-100 text-rose-800' };
-            } else {
-                return { status: 'Risiko Obesitas', class: 'bg-blue-100 text-blue-800' };
-            }
-        }
-
-        function formatDateString(dateStr) {
-            if (!dateStr) return '-';
-            const parts = dateStr.split('-');
-            if (parts.length === 3) {
-                const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
-                return dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-            }
-            return dateStr;
-        }
-
-        // --- DASHBOARD LOGIC ---
-        function updateDashboardStats() {
-            document.getElementById('stat-total-balita').innerText = balitaData.length;
-            document.getElementById('stat-total-bumil').innerText = bumilData.length;
-
-            let baikCount = 0;
-            let perhatianCount = 0;
-
-            balitaData.forEach(b => {
-                const age = calculateAgeMonths(b.tglLahir);
-                const lastPem = b.riwayat && b.riwayat.length > 0 ? b.riwayat[b.riwayat.length - 1] : null;
-                const status = lastPem ? evaluateStatusGizi(lastPem.bb, lastPem.tb, age).status : 'Gizi Baik';
-                
-                if (status === 'Gizi Baik') baikCount++;
-                else perhatianCount++;
-            });
-
-            document.getElementById('stat-gizi-baik').innerText = baikCount;
-            document.getElementById('stat-perhatian').innerText = perhatianCount;
-
-            const agendaContainer = document.getElementById('dashboard-agenda-list');
-            agendaContainer.innerHTML = '';
-            
-            if (jadwalData.length === 0) {
-                agendaContainer.innerHTML = '<p class="text-xs text-slate-400">Belum ada agenda bulan ini.</p>';
-            } else {
-                jadwalData.slice(0, 3).forEach(item => {
-                    const parts = item.tanggal.split('-');
-                    const d = parts.length === 3 ? new Date(parts[0], parts[1] - 1, parts[2]) : new Date();
-                    
-                    agendaContainer.innerHTML += `
-                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-start space-x-3">
-                            <div class="p-2 bg-emerald-100 text-emerald-700 rounded-lg text-center min-w-[50px]">
-                                <span class="block text-[10px] font-bold uppercase">${d.toLocaleString('id-ID', { month: 'short' })}</span>
-                                <span class="block text-base font-extrabold leading-none">${d.getDate()}</span>
-                            </div>
-                            <div class="overflow-hidden">
-                                <h4 class="font-bold text-slate-800 text-xs truncate">${item.judul}</h4>
-                                <p class="text-[11px] text-slate-500 mt-0.5"><i data-lucide="clock" class="w-3 h-3 inline mr-1"></i>${item.waktu}</p>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-            refreshIcons();
-        }
-
-        function initGiziChart() {
-            const ctx = document.getElementById('giziChart').getContext('2d');
-            
-            let counts = { 'Gizi Baik': 0, 'Perlu Perhatian': 0, 'Stunting / Kurang': 0, 'Risiko Obesitas': 0 };
-            balitaData.forEach(b => {
-                const age = calculateAgeMonths(b.tglLahir);
-                const lastPem = b.riwayat && b.riwayat.length > 0 ? b.riwayat[b.riwayat.length - 1] : null;
-                const status = lastPem ? evaluateStatusGizi(lastPem.bb, lastPem.tb, age).status : 'Gizi Baik';
-                if (counts[status] !== undefined) counts[status]++;
-                else counts['Gizi Baik']++;
-            });
-
-            if (giziChartInstance) giziChartInstance.destroy();
-
-            giziChartInstance = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Gizi Baik', 'Perlu Perhatian', 'Stunting / Kurang', 'Risiko Obesitas'],
-                    datasets: [{
-                        data: [counts['Gizi Baik'], counts['Perlu Perhatian'], counts['Stunting / Kurang'], counts['Risiko Obesitas']],
-                        backgroundColor: ['#22c55e', '#f59e0b', '#ef4444', '#3b82f6'],
-                        borderWidth: 2,
-                        borderColor: '#ffffff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'right', labels: { font: { family: 'Plus Jakarta Sans', size: 11 } } }
-                    },
-                    cutout: '70%'
-                }
-            });
-        }
-
-        // --- BALITA MANAGEMENT ---
-        function renderBalitaTable() {
-            const tbody = document.getElementById('table-balita-body');
-            const search = document.getElementById('search-balita').value.toLowerCase();
-            const filter = document.getElementById('filter-gizi').value;
+        function renderBalita() {
+            const tbody = document.getElementById('list-balita');
             tbody.innerHTML = '';
-
-            const filtered = balitaData.filter(b => {
-                const matchSearch = b.nama.toLowerCase().includes(search) || b.ortu.toLowerCase().includes(search);
-                const age = calculateAgeMonths(b.tglLahir);
-                const lastPem = b.riwayat && b.riwayat.length > 0 ? b.riwayat[b.riwayat.length - 1] : null;
-                const statusObj = lastPem ? evaluateStatusGizi(lastPem.bb, lastPem.tb, age) : { status: 'Gizi Baik' };
-
-                let matchFilter = true;
-                if (filter === 'Gizi Baik') matchFilter = statusObj.status === 'Gizi Baik';
-                if (filter === 'Perlu Perhatian') matchFilter = statusObj.status !== 'Gizi Baik';
-
-                return matchSearch && matchFilter;
-            });
-
-            if (filtered.length === 0) {
-                document.getElementById('empty-balita-state').classList.remove('hidden');
-            } else {
-                document.getElementById('empty-balita-state').classList.add('hidden');
-            }
-
-            filtered.forEach(b => {
-                const age = calculateAgeMonths(b.tglLahir);
-                const lastPem = b.riwayat && b.riwayat.length > 0 ? b.riwayat[b.riwayat.length - 1] : null;
-                const statusObj = lastPem ? evaluateStatusGizi(lastPem.bb, lastPem.tb, age) : { status: 'Belum Diukur', class: 'bg-slate-100 text-slate-600' };
-
+            sampleData.balita.forEach((item, index) => {
+                const badgeColor = item.status === 'Balita Sehat' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800';
                 tbody.innerHTML += `
-                    <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="px-5 py-3.5">
-                            <div class="font-bold text-slate-800">${b.nama}</div>
-                            <div class="text-[11px] text-slate-400">Ortu: ${b.ortu}</div>
-                        </td>
-                        <td class="px-5 py-3.5">
-                            <span class="inline-block px-2 py-0.5 text-[10px] rounded-md font-medium ${b.jk === 'Laki-laki' ? 'bg-blue-50 text-blue-700' : 'bg-pink-50 text-pink-700'}">${b.jk}</span>
-                            <div class="text-[11px] font-semibold text-slate-600 mt-0.5">${age} Bulan</div>
-                        </td>
-                        <td class="px-5 py-3.5">
-                            ${lastPem ? `
-                                <div class="font-medium text-slate-700">BB: ${lastPem.bb} kg \vert{} TB:${lastPem.tb} cm</div>
-                                <div class="text-[10px] text-slate-400">${formatDateString(lastPem.tanggal)}</div>
-                            ` : '<span class="text-slate-400 italic">Belum ada data</span>'}
-                        </td>
-                        <td class="px-5 py-3.5">
-                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${statusObj.class}">
-                                ${statusObj.status}
-                            </span>
-                        </td>
-                        <td class="px-5 py-3.5 text-slate-600">
-                            ${lastPem && lastPem.catatan ? lastPem.catatan : '-'}
-                        </td>
-                        <td class="px-5 py-3.5 text-right space-x-1">
-                            <button onclick="viewKmsForBalita('${b.id}')" title="Lihat KMS Grafik" class="p-1.5 text-emerald-600 hover:bg-emerald-50 rounded-lg">
-                                <i data-lucide="line-chart" class="w-4 h-4"></i>
-                            </button>
-                            <button onclick="editBalita('${b.id}')" title="Edit Data" class="p-1.5 text-slate-500 hover:bg-slate-100 rounded-lg">
-                                <i data-lucide="edit-3" class="w-4 h-4"></i>
-                            </button>
-                            <button onclick="deleteBalita('${b.id}')" title="Hapus" class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </button>
+                    <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('balita', ${index})">
+                        <td class="px-5 py-3 font-bold text-slate-800">${item.nama}</td>
+                        <td class="px-5 py-3">${item.ortu}</td>
+                        <td class="px-5 py-3">${item.jk} / ${item.umur} Bln</td>
+                        <td class="px-5 py-3"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${badgeColor}">${item.status}</span></td>
+                        <td class="px-5 py-3 text-right">
+                            <button class="px-3 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-semibold rounded-lg text-xs">Lihat Detail</button>
                         </td>
                     </tr>
                 `;
             });
-            refreshIcons();
         }
 
-        function openModalBalita() {
-            document.getElementById('form-balita').reset();
-            document.getElementById('balita-id').value = '';
-            document.getElementById('modal-balita-title').innerText = "Form Pendaftaran Balita Baru";
-            document.getElementById('modal-balita').classList.remove('hidden');
-        }
-
-        function closeModalBalita() {
-            document.getElementById('modal-balita').classList.add('hidden');
-        }
-
-        function saveBalita(e) {
-            e.preventDefault();
-            const id = document.getElementById('balita-id').value || 'B' + Date.now();
-            const nama = document.getElementById('balita-nama').value;
-            const jk = document.getElementById('balita-jk').value;
-            const tglLahir = document.getElementById('balita-tgllahir').value;
-            const ortu = document.getElementById('balita-ortu').value;
-            const alamat = document.getElementById('balita-alamat').value;
-
-            const existingIndex = balitaData.findIndex(b => b.id === id);
-            if (existingIndex > -1) {
-                balitaData[existingIndex] = { ...balitaData[existingIndex], nama, jk, tglLahir, ortu, alamat };
-                showToast('Data balita berhasil diperbarui');
-            } else {
-                balitaData.push({ id, nama, jk, tglLahir, ortu, alamat, riwayat: [] });
-                showToast('Balita baru berhasil ditambahkan');
-            }
-
-            localStorage.setItem('posyandu_balita', JSON.stringify(balitaData));
-            closeModalBalita();
-            renderBalitaTable();
-            populateKmsDropdown();
-            updateDashboardStats();
-            initGiziChart();
-        }
-
-        function editBalita(id) {
-            const b = balitaData.find(item => item.id === id);
-            if (!b) return;
-            document.getElementById('balita-id').value = b.id;
-            document.getElementById('balita-nama').value = b.nama;
-            document.getElementById('balita-jk').value = b.jk;
-            document.getElementById('balita-tgllahir').value = b.tglLahir;
-            document.getElementById('balita-ortu').value = b.ortu;
-            document.getElementById('balita-alamat').value = b.alamat;
-
-            document.getElementById('modal-balita-title').innerText = "Edit Data Balita";
-            document.getElementById('modal-balita').classList.remove('hidden');
-        }
-
-        function deleteBalita(id) {
-            if (confirm("Apakah Anda yakin ingin menghapus data balita ini?")) {
-                balitaData = balitaData.filter(b => b.id !== id);
-                localStorage.setItem('posyandu_balita', JSON.stringify(balitaData));
-                renderBalitaTable();
-                populateKmsDropdown();
-                updateDashboardStats();
-                initGiziChart();
-                showToast('Data balita telah dihapus');
-            }
-        }
-
-        // --- IBU HAMIL MANAGEMENT ---
-        function renderBumilTable() {
-            const tbody = document.getElementById('table-bumil-body');
-            const search = document.getElementById('search-bumil').value.toLowerCase();
+        function renderBumil() {
+            const tbody = document.getElementById('list-bumil');
             tbody.innerHTML = '';
-
-            const filtered = bumilData.filter(m => m.nama.toLowerCase().includes(search));
-
-            filtered.forEach(m => {
+            sampleData.bumil.forEach((item, index) => {
                 tbody.innerHTML += `
-                    <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="px-5 py-3.5">
-                            <div class="font-bold text-slate-800">${m.nama}</div>
-                            <div class="text-[11px] text-slate-400">Usia: ${m.usia} Tahun</div>
-                        </td>
-                        <td class="px-5 py-3.5">
-                            <span class="px-2.5 py-1 bg-teal-50 text-teal-700 font-bold rounded-lg text-[11px]">
-                                ${m.uk} Minggu
-                            </span>
-                        </td>
-                        <td class="px-5 py-3.5 font-medium">
-                            <div>${m.bb ? m.bb + ' kg' : '-'}</div>
-                            <div class="text-[11px] text-slate-400">TD: ${m.td || '-'}</div>
-                        </td>
-                        <td class="px-5 py-3.5 text-slate-600">
-                            ${m.catatan || '-'}
-                        </td>
-                        <td class="px-5 py-3.5 text-slate-500">
-                            ${m.kontak || '-'}
-                        </td>
-                        <td class="px-5 py-3.5 text-right space-x-1">
-                            <button onclick="editBumil('${m.id}')" class="p-1.5 text-slate-500 hover:bg-slate-100 rounded-lg">
-                                <i data-lucide="edit-3" class="w-4 h-4"></i>
-                            </button>
-                            <button onclick="deleteBumil('${m.id}')" class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </button>
+                    <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('bumil', ${index})">
+                        <td class="px-5 py-3 font-bold text-slate-800">${item.nama}</td>
+                        <td class="px-5 py-3">${item.usia} Thn</td>
+                        <td class="px-5 py-3 font-semibold text-teal-700">${item.uk} Minggu</td>
+                        <td class="px-5 py-3">${item.td}</td>
+                        <td class="px-5 py-3 text-right">
+                            <button class="px-3 py-1 bg-teal-50 text-teal-700 hover:bg-teal-100 font-semibold rounded-lg text-xs">Lihat Detail</button>
                         </td>
                     </tr>
                 `;
             });
-            refreshIcons();
         }
 
-        function openModalBumil() {
-            document.getElementById('form-bumil').reset();
-            document.getElementById('bumil-id').value = '';
-            document.getElementById('modal-bumil-title').innerText = "Form Ibu Hamil Baru";
-            document.getElementById('modal-bumil').classList.remove('hidden');
-        }
-
-        function closeModalBumil() {
-            document.getElementById('modal-bumil').classList.add('hidden');
-        }
-
-        function saveBumil(e) {
-            e.preventDefault();
-            const id = document.getElementById('bumil-id').value || 'M' + Date.now();
-            const nama = document.getElementById('bumil-nama').value;
-            const usia = document.getElementById('bumil-usia').value;
-            const uk = document.getElementById('bumil-uk').value;
-            const bb = document.getElementById('bumil-bb').value;
-            const td = document.getElementById('bumil-td').value;
-            const catatan = document.getElementById('bumil-catatan').value;
-            const kontak = document.getElementById('bumil-kontak').value;
-
-            const existingIndex = bumilData.findIndex(m => m.id === id);
-            if (existingIndex > -1) {
-                bumilData[existingIndex] = { id, nama, usia, uk, bb, td, catatan, kontak };
-                showToast('Data ibu hamil diperbarui');
-            } else {
-                bumilData.push({ id, nama, usia, uk, bb, td, catatan, kontak });
-                showToast('Data ibu hamil ditambahkan');
-            }
-
-            localStorage.setItem('posyandu_bumil', JSON.stringify(bumilData));
-            closeModalBumil();
-            renderBumilTable();
-            updateDashboardStats();
-        }
-
-        function editBumil(id) {
-            const m = bumilData.find(item => item.id === id);
-            if (!m) return;
-            document.getElementById('bumil-id').value = m.id;
-            document.getElementById('bumil-nama').value = m.nama;
-            document.getElementById('bumil-usia').value = m.usia;
-            document.getElementById('bumil-uk').value = m.uk;
-            document.getElementById('bumil-bb').value = m.bb;
-            document.getElementById('bumil-td').value = m.td;
-            document.getElementById('bumil-catatan').value = m.catatan;
-            document.getElementById('bumil-kontak').value = m.kontak;
-
-            document.getElementById('modal-bumil-title').innerText = "Edit Data Ibu Hamil";
-            document.getElementById('modal-bumil').classList.remove('hidden');
-        }
-
-        function deleteBumil(id) {
-            if (confirm("Hapus data ibu hamil ini?")) {
-                bumilData = bumilData.filter(m => m.id !== id);
-                localStorage.setItem('posyandu_bumil', JSON.stringify(bumilData));
-                renderBumilTable();
-                updateDashboardStats();
-                showToast('Data dihapus');
-            }
-        }
-
-        // --- KMS & GRAFIK TUMBUH KEMBANG ---
-        function populateKmsDropdown() {
-            const select = document.getElementById('kms-select-balita');
-            select.innerHTML = '';
-            balitaData.forEach(b => {
-                select.innerHTML += `<option value="${b.id}">${b.nama} (${b.jk})</option>`;
-            });
-            if (activeKmsBalitaId) select.value = activeKmsBalitaId;
-        }
-
-        function viewKmsForBalita(id) {
-            activeKmsBalitaId = id;
-            populateKmsDropdown();
-            switchTab('kms');
-        }
-
-        function loadKmsChart() {
-            const select = document.getElementById('kms-select-balita');
-            if (!select.value) return;
-            activeKmsBalitaId = select.value;
-
-            const child = balitaData.find(b => b.id === activeKmsBalitaId);
-            if (!child) return;
-
-            const ageMonths = calculateAgeMonths(child.tglLahir);
-
-            const infoContainer = document.getElementById('kms-child-info');
-            const lastRiwayat = child.riwayat && child.riwayat.length > 0 ? child.riwayat[child.riwayat.length - 1] : null;
-            const evalGizi = lastRiwayat ? evaluateStatusGizi(lastRiwayat.bb, lastRiwayat.tb, ageMonths) : { status: '-', class: 'bg-slate-100 text-slate-600' };
-
-            infoContainer.innerHTML = `
-                <div><span class="text-slate-400 block">Nama Anak</span><strong class="text-slate-800">${child.nama}</strong></div>
-                <div><span class="text-slate-400 block">Umur Sekarang</span><strong class="text-slate-800">${ageMonths} Bulan</strong></div>
-                <div><span class="text-slate-400 block">Jenis Kelamin</span><strong class="text-slate-800">${child.jk}</strong></div>
-                <div><span class="text-slate-400 block">Status Gizi Terakhir</span><span class="inline-block px-2 py-0.5 rounded font-bold ${evalGizi.class}">${evalGizi.status}</span></div>
-            `;
-
-            const historyBody = document.getElementById('kms-history-table');
-            historyBody.innerHTML = '';
-            if (!child.riwayat || child.riwayat.length === 0) {
-                historyBody.innerHTML = `<tr><td colspan="6" class="px-4 py-3 text-center text-slate-400">Belum ada riwayat pengukuran</td></tr>`;
-            } else {
-                child.riwayat.forEach(r => {
-                    const status = evaluateStatusGizi(r.bb, r.tb, ageMonths);
-                    historyBody.innerHTML += `
-                        <tr class="hover:bg-slate-50">
-                            <td class="px-4 py-2.5 font-medium">${formatDateString(r.tanggal)}</td>
-                            <td class="px-4 py-2.5 font-bold text-emerald-700">${r.bb} kg</td>
-                            <td class="px-4 py-2.5">${r.tb} cm</td>
-                            <td class="px-4 py-2.5">${r.lk || '-'} cm</td>
-                            <td class="px-4 py-2.5"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${status.class}">${status.status}</span></td>
-                            <td class="px-4 py-2.5 text-slate-600">${r.catatan || '-'}</td>
-                        </tr>
-                    `;
-                });
-            }
-
-            const ctx = document.getElementById('kmsChart').getContext('2d');
-            if (kmsChartInstance) kmsChartInstance.destroy();
-
-            const labels = child.riwayat ? child.riwayat.map(r => formatDateString(r.tanggal)) : [];
-            const bbData = child.riwayat ? child.riwayat.map(r => r.bb) : [];
-            const tbData = child.riwayat ? child.riwayat.map(r => r.tb) : [];
-
-            kmsChartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Berat Badan (kg)',
-                            data: bbData,
-                            borderColor: '#10b981',
-                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                            fill: true,
-                            tension: 0.3,
-                            yAxisID: 'y'
-                        },
-                        {
-                            label: 'Tinggi Badan (cm)',
-                            data: tbData,
-                            borderColor: '#06b6d4',
-                            borderDash: [5, 5],
-                            tension: 0.3,
-                            yAxisID: 'y1'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: { mode: 'index', intersect: false },
-                    scales: {
-                        y: {
-                            type: 'linear',
-                            display: true,
-                            position: 'left',
-                            title: { display: true, text: 'Berat Badan (kg)', font: { size: 10 } }
-                        },
-                        y1: {
-                            type: 'linear',
-                            display: true,
-                            position: 'right',
-                            grid: { drawOnChartArea: false },
-                            title: { display: true, text: 'Tinggi Badan (cm)', font: { size: 10 } }
-                        }
-                    }
-                }
+        function renderLansia() {
+            const tbody = document.getElementById('list-lansia');
+            tbody.innerHTML = '';
+            sampleData.lansia.forEach((item, index) => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('lansia', ${index})">
+                        <td class="px-5 py-3 font-bold text-slate-800">${item.nama}</td>
+                        <td class="px-5 py-3">${item.usia} Thn</td>
+                        <td class="px-5 py-3">${item.td}</td>
+                        <td class="px-5 py-3"><span class="px-2.5 py-1 bg-purple-100 text-purple-800 rounded-full text-[10px] font-bold">${item.status}</span></td>
+                        <td class="px-5 py-3 text-right">
+                            <button class="px-3 py-1 bg-purple-50 text-purple-700 hover:bg-purple-100 font-semibold rounded-lg text-xs">Lihat Detail</button>
+                        </td>
+                    </tr>
+                `;
             });
         }
 
-        // --- PENIMBANGAN / PEMERIKSAAN MODAL ---
-        function openModalPemeriksaan() {
-            if (!activeKmsBalitaId) return;
-            document.getElementById('form-pemeriksaan').reset();
-            document.getElementById('pem-balita-id').value = activeKmsBalitaId;
-            document.getElementById('pem-tanggal').value = new Date().toISOString().split('T')[0];
-            document.getElementById('modal-pemeriksaan').classList.remove('hidden');
-        }
-
-        function closeModalPemeriksaan() {
-            document.getElementById('modal-pemeriksaan').classList.add('hidden');
-        }
-
-        function savePemeriksaan(e) {
-            e.preventDefault();
-            const balitaId = document.getElementById('pem-balita-id').value;
-            const tanggal = document.getElementById('pem-tanggal').value;
-            const bb = parseFloat(document.getElementById('pem-bb').value);
-            const tb = parseFloat(document.getElementById('pem-tb').value);
-            const lk = parseFloat(document.getElementById('pem-lk').value) || 0;
-            const catatan = document.getElementById('pem-catatan').value;
-
-            const child = balitaData.find(b => b.id === balitaId);
-            if (child) {
-                if (!child.riwayat) child.riwayat = [];
-                child.riwayat.push({ tanggal, bb, tb, lk, catatan });
-                
-                localStorage.setItem('posyandu_balita', JSON.stringify(balitaData));
-                showToast('Catatan pengukuran berhasil ditambahkan');
-                closeModalPemeriksaan();
-                loadKmsChart();
-                renderBalitaTable();
-                updateDashboardStats();
-                initGiziChart();
-            }
-        }
-
-        // --- JADWAL POSYANDU MANAGEMENT ---
-        function renderJadwalList() {
-            const container = document.getElementById('jadwal-list-container');
-            container.innerHTML = '';
-
-            if (jadwalData.length === 0) {
-                container.innerHTML = `<div class="p-6 text-center text-slate-400 bg-white rounded-2xl">Belum ada agenda jadwal tersimpan</div>`;
-                return;
-            }
-
-            jadwalData.forEach((j) => {
-                const parts = j.tanggal.split('-');
-                const d = parts.length === 3 ? new Date(parts[0], parts[1] - 1, parts[2]) : new Date();
-
-                container.innerHTML += `
-                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div class="flex items-start space-x-4">
-                            <div class="p-3 bg-emerald-50 text-emerald-700 rounded-2xl text-center min-w-[65px]">
-                                <span class="block text-xs font-bold uppercase">${d.toLocaleString('id-ID', { month: 'short' })}</span>
-                                <span class="block text-xl font-black">${d.getDate()}</span>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-slate-800 text-sm">${j.judul}</h3>
-                                <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-500 mt-1">
-                                    <span class="flex items-center"><i data-lucide="clock" class="w-3.5 h-3.5 mr-1 text-slate-400"></i>${j.waktu}</span>
-                                    <span class="flex items-center"><i data-lucide="map-pin" class="w-3.5 h-3.5 mr-1 text-slate-400"></i>${j.lokasi}</span>
-                                </div>
-                                ${j.ket ? `<p class="text-xs text-emerald-800 bg-emerald-50/60 px-2.5 py-1 rounded-lg mt-2 inline-block">${j.ket}</p>` : ''}
-                            </div>
-                        </div>
-                        <button onclick="deleteJadwal('${j.id}')" title="Hapus Agenda" class="self-end sm:self-center p-2 text-rose-500 hover:bg-rose-50 rounded-xl transition-all">
-                            <i data-lucide="trash-2" class="w-4 h-4"></i>
-                        </button>
+        // Tampilkan Modal Detail Pasien (Untuk Umum)
+        function showDetail(type, index) {
+            const modalBody = document.getElementById('modalDetailBody');
+            if(type === 'balita') {
+                const b = sampleData.balita[index];
+                modalBody.innerHTML = `
+                    <div class="bg-emerald-50/50 p-3 rounded-xl space-y-1">
+                        <p class="text-slate-400">Nama Balita</p>
+                        <p class="text-base font-bold text-slate-800">${b.nama}</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Orang Tua / Wali</span><strong>${b.ortu}</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia / Jenis Kelamin</span><strong>${b.umur} Bulan / ${b.jk}</strong></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Berat Badan (BB)</span><strong class="text-emerald-600">${b.bb} kg</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Tinggi Badan (TB)</span><strong class="text-emerald-600">${b.tb} cm</strong></div>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <span class="text-slate-400 block">Riwayat Kesehatan & Imunisasi:</span>
+                        <p class="font-medium mt-1 text-slate-700">${b.riwayat}</p>
                     </div>
                 `;
+            } else if(type === 'bumil') {
+                const m = sampleData.bumil[index];
+                modalBody.innerHTML = `
+                    <div class="bg-teal-50/50 p-3 rounded-xl space-y-1">
+                        <p class="text-slate-400">Nama Ibu Hamil</p>
+                        <p class="text-base font-bold text-slate-800">${m.nama}</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia Ibu</span><strong>${m.usia} Tahun</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia Kandungan</span><strong class="text-teal-600">${m.uk} Minggu</strong></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Berat Badan (BB)</span><strong>${m.bb} kg</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Tekanan Darah (TD)</span><strong>${m.td} mmHg</strong></div>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <span class="text-slate-400 block">Catatan Suplemen & Pemeriksaan:</span>
+                        <p class="font-medium mt-1 text-slate-700">${m.catatan}</p>
+                    </div>
+                `;
+            } else if(type === 'lansia') {
+                const l = sampleData.lansia[index];
+                modalBody.innerHTML = `
+                    <div class="bg-purple-50/50 p-3 rounded-xl space-y-1">
+                        <p class="text-slate-400">Nama Lansia</p>
+                        <p class="text-base font-bold text-slate-800">${l.nama}</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia</span><strong>${l.usia} Tahun</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Tekanan Darah</span><strong>${l.td} mmHg</strong></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Gula Darah</span><strong>${l.gula} mg/dL</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Asam Urat</span><strong>${l.asamUrat} mg/dL</strong></div>
+                    </div>
+                `;
+            }
+            document.getElementById('modalDetail').classList.remove('hidden');
+        }
+
+        function closeModalDetail() {
+            document.getElementById('modalDetail').classList.add('hidden');
+        }
+
+        // Tab Switching
+        function switchTab(tab) {
+            ['balita', 'bumil', 'lansia'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                document.getElementById(`tab-btn-${t}`).className = "px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-emerald-600";
             });
-            refreshIcons();
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${tab}`).className = "px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-emerald-600 text-emerald-600 bg-white";
         }
 
-        function openModalJadwal() {
-            document.getElementById('form-jadwal').reset();
-            document.getElementById('modal-jadwal').classList.remove('hidden');
-        }
-
-        function closeModalJadwal() {
-            document.getElementById('modal-jadwal').classList.add('hidden');
-        }
-
-        function saveJadwal(e) {
-            e.preventDefault();
-            const judul = document.getElementById('jadwal-judul').value;
-            const tanggal = document.getElementById('jadwal-tanggal').value;
-            const waktu = document.getElementById('jadwal-waktu').value;
-            const lokasi = document.getElementById('jadwal-lokasi').value;
-            const ket = document.getElementById('jadwal-ket').value;
-
-            jadwalData.push({ id: 'J' + Date.now(), judul, tanggal, waktu, lokasi, ket });
-            localStorage.setItem('posyandu_jadwal', JSON.stringify(jadwalData));
-
-            closeModalJadwal();
-            renderJadwalList();
-            updateDashboardStats();
-            showToast('Agenda baru berhasil disimpan');
-        }
-
-        function deleteJadwal(id) {
-            if (confirm("Hapus agenda kegiatan ini?")) {
-                jadwalData = jadwalData.filter(j => j.id !== id);
-                localStorage.setItem('posyandu_jadwal', JSON.stringify(jadwalData));
-                renderJadwalList();
-                updateDashboardStats();
-                showToast('Agenda dihapus');
+        // Modal Admin Helper
+        function openAdminModal() { document.getElementById('modalAdmin').classList.remove('hidden'); }
+        function closeAdminModal() { document.getElementById('modalAdmin').classList.add('hidden'); }
+        function saveAdminConfig() {
+            const pin = document.getElementById('adminPin').value;
+            if(pin === '1234') {
+                alert("Konfigurasi tersimpan. Website terhubung!");
+                closeAdminModal();
+            } else {
+                alert("PIN Admin Salah!");
             }
         }
 
-        // --- RESET TO DUMMY DATA ---
-        function resetToDefaultData() {
-            if (confirm("Apakah Anda yakin ingin mengembalikan data sampel bawaan? Data input Anda akan direset.")) {
-                localStorage.clear();
-                initApp();
-                showToast('Data berhasil di-reset ke data contoh');
-            }
-        }
-
-        // --- NOTIFICATION TOAST ---
-        function showToast(message) {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'bg-slate-800 text-white px-4 py-2.5 rounded-xl shadow-lg text-xs flex items-center space-x-2 transform transition-all duration-300 opacity-0 translate-y-2 pointer-events-auto';
-            toast.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> <span>${message}</span>`;
-            
-            container.appendChild(toast);
-            refreshIcons();
-
-            setTimeout(() => {
-                toast.classList.remove('opacity-0', 'translate-y-2');
-            }, 10);
-
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-y-2');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // On Window Load
-        window.onload = function() {
-            initApp();
-        };
+        // Running Load
+        window.onload = initData;
     </script>
 </body>
 </html>
