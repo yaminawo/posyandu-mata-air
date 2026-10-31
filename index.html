@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POSYANDU MATA AIR - Tampilan Informasi Publik</title>
+    <title>Posyandu Mata Air - Tampilan Informasi Publik</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { font-family: 'Plus Jakarta Sans', sans-serif !important; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
@@ -45,49 +45,6 @@
     <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full space-y-8">
 
-        <!-- SECTION: PROFIL POSYANDU & ALAMAT LOKASI -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="md:col-span-2 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
-                <h2 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
-                    <i class="fa-solid fa-circle-info text-emerald-600 mr-2"></i> Profil Posyandu Mata Air
-                </h2>
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    Posyandu Mata Air merupakan pusat pelayanan kesehatan terpadu berbasis masyarakat yang berkomitmen memberikan pelayanan gizi, pencegahan stunting, serta pemantauan tumbuh kembang balita, kesehatan ibu hamil, dan lansia secara rutin setiap bulannya.
-                </p>
-                <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
-                    <div class="bg-emerald-50 p-3 rounded-xl">
-                        <span class="text-slate-400 block">Jadwal Rutin</span>
-                        <strong class="text-emerald-800">Setiap Tgl 15 Bulan</strong>
-                    </div>
-                    <div class="bg-teal-50 p-3 rounded-xl">
-                        <span class="text-slate-400 block">Jam Operasional</span>
-                        <strong class="text-teal-800">08.00 - 11.30 WITA</strong>
-                    </div>
-                    <div class="bg-cyan-50 p-3 rounded-xl col-span-2 sm:col-span-1">
-                        <span class="text-slate-400 block">Wilayah Kerja</span>
-                        <strong class="text-cyan-800">RT 01 - RT 08 RW 04</strong>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
-                <div>
-                    <h2 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
-                        <i class="fa-solid fa-map-location-dot text-rose-500 mr-2"></i> Alamat & Lokasi
-                    </h2>
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                        <strong>Gedung Posyandu Mata Air</strong><br>
-                        Jl. Melati No. 08, RT 08 / RW 04<br>
-                        Mata Air / Tingkat Satu
-                    </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-slate-100 text-xs space-y-1">
-                    <p class="text-slate-500"><i class="fa-solid fa-phone text-emerald-600 mr-1.5"></i> Kontak Hotline: 0812-3456-7890</p>
-                    <p class="text-slate-500"><i class="fa-solid fa-envelope text-emerald-600 mr-1.5"></i> posyandu.mataair@desa.id</p>
-                </div>
-            </div>
-        </section>
-
         <!-- SECTION: STRUKTUR KADER POSYANDU -->
         <section class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
             <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
@@ -98,28 +55,28 @@
                     <div class="w-10 h-10 mx-auto bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold mb-2">
                         <i class="fa-solid fa-user-check"></i>
                     </div>
-                    <h3 class="font-bold text-xs text-slate-800">Ibu. Sesilia T.R. Hayon</h3>
+                    <h3 class="font-bold text-xs text-slate-800">Ny. Sesilia T.R. Hayon</h3>
                     <p class="text-[11px] text-emerald-600 font-medium">Ketua Kader Posyandu</p>
                 </div>
                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
                     <div class="w-10 h-10 mx-auto bg-teal-100 text-teal-700 rounded-full flex items-center justify-center font-bold mb-2">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </div>
-                    <h3 class="font-bold text-xs text-slate-800">Ibu. Clarissa Dewi</h3>
+                    <h3 class="font-bold text-xs text-slate-800">Ny. Clarissa Dewi</h3>
                     <p class="text-[11px] text-teal-600 font-medium">Sekretaris</p>
                 </div>
                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
                     <div class="w-10 h-10 mx-auto bg-cyan-100 text-cyan-700 rounded-full flex items-center justify-center font-bold mb-2">
                         <i class="fa-solid fa-wallet"></i>
                     </div>
-                    <h3 class="font-bold text-xs text-slate-800">Ibu. Nurul Hidayah</h3>
+                    <h3 class="font-bold text-xs text-slate-800">Ny. Nurul Hidayah</h3>
                     <p class="text-[11px] text-cyan-600 font-medium">Bendahara</p>
                 </div>
                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
                     <div class="w-10 h-10 mx-auto bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold mb-2">
                         <i class="fa-solid fa-weight-scale"></i>
                     </div>
-                    <h3 class="font-bold text-xs text-slate-800">Ibu. Rina Kartika</h3>
+                    <h3 class="font-bold text-xs text-slate-800">Ny. Rina Kartika</h3>
                     <p class="text-[11px] text-blue-600 font-medium">Kader Penimbangan Balita</p>
                 </div>
                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center col-span-2 sm:col-span-1">
@@ -330,7 +287,6 @@
             lansia: localStorage.getItem('csv_lansia') || defaultUrls.lansia
         };
 
-        // Menambahkan timestamp unik (&_t=...) agar browser selalu mengambil data TERBARU dari Google Sheets (bukan dari cache memori)
         function formatToCsvUrl(url) {
             if(!url) return '';
             let clean = url.trim();
