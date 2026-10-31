@@ -14,7 +14,6 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Header / Banner Utama -->
     <header class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700 text-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -38,10 +37,8 @@
         </div>
     </header>
 
-    <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full space-y-8">
 
-        <!-- SECTION: PROFIL POSYANDU & ALAMAT LOKASI -->
         <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="md:col-span-2 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
                 <h2 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
@@ -69,7 +66,7 @@
             <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
                 <div>
                     <h2 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
-                        <i class="fa-solid fa-map-location-dot text-rose-500 mr-2"></i> Alamat & Lokasi
+                        <i class="fa-solid fa-map-location-dot text-rose-500 mr-2">
                     </h2>
                     <p class="text-xs text-slate-600 leading-relaxed">
                         <strong>Gedung Posyandu Mata Air</strong><br>
@@ -84,7 +81,6 @@
             </div>
         </section>
 
-        <!-- SECTION: STRUKTUR KADER POSYANDU -->
         <section class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
             <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
                 <i class="fa-solid fa-users-gear text-emerald-600 mr-2"></i> Tim Kader Posyandu Mata Air
@@ -128,7 +124,6 @@
             </div>
         </section>
 
-        <!-- SECTION: RINGKASAN STATISTIK -->
         <section>
             <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
                 <i class="fa-solid fa-chart-line text-emerald-600 mr-2"></i> Ringkasan Statistik Publik
@@ -177,7 +172,6 @@
             </div>
         </section>
 
-        <!-- SECTION: DAFTAR TABEL PASIEN PUBLIK -->
         <section class="space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
                 <h2 class="text-lg font-bold text-slate-800 flex items-center">
@@ -186,14 +180,12 @@
                 <span class="text-xs text-slate-500">*Klik pada nama peserta untuk melihat rincian riwayat kesehatan</span>
             </div>
 
-            <!-- Tab Navigasi Publik -->
             <div class="flex space-x-2 border-b border-slate-200">
                 <button onclick="switchTab('balita')" id="tab-btn-balita" class="px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-emerald-600 text-emerald-600 bg-white">Data Balita</button>
                 <button onclick="switchTab('bumil')" id="tab-btn-bumil" class="px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-emerald-600">Ibu Hamil</button>
                 <button onclick="switchTab('lansia')" id="tab-btn-lansia" class="px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-emerald-600">Lansia</button>
             </div>
 
-            <!-- Tabel Balita -->
             <div id="tab-balita" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-xs">
@@ -211,7 +203,6 @@
                 </div>
             </div>
 
-            <!-- Tabel Ibu Hamil -->
             <div id="tab-bumil" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-xs">
@@ -229,7 +220,6 @@
                 </div>
             </div>
 
-            <!-- Tabel Lansia -->
             <div id="tab-lansia" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-xs">
@@ -250,7 +240,6 @@
 
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-auto">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
             <p>© Posyandu Mata Air - Kalabahi Kota, Kab. Alor</p>
@@ -263,7 +252,6 @@
         </div>
     </footer>
 
-    <!-- MODAL DETAIL PASIEN PUBLIK -->
     <div id="modalDetail" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
@@ -281,7 +269,6 @@
         </div>
     </div>
 
-    <!-- MODAL ADMIN -->
     <div id="modalAdmin" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
@@ -313,13 +300,18 @@
     <script>
         const activeData = { balita: [], bumil: [], lansia: [] };
 
-        let configUrls = {
-            balita: localStorage.getItem('csv_balita') || 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHlp3qaZsk730/pub?gid=0&single=true&output=csv',
-            bumil: localStorage.getItem('csv_bumil') || '',
-            lansia: localStorage.getItem('csv_lansia') || ''
+        let defaultUrls = {
+            balita: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHIp3qaZsk730/pub?gid=0&single=true&output=csv',
+            bumil: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHIp3qaZsk730/pub?gid=0&single=true&output=csv',
+            lansia: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHIp3qaZsk730/pub?gid=2&single=true&output=csv'
         };
 
-        // Fungsi Memastikan Link Selalu Murni Format CSV
+        let configUrls = {
+            balita: localStorage.getItem('csv_balita') || defaultUrls.balita,
+            bumil: localStorage.getItem('csv_bumil') || defaultUrls.bumil,
+            lansia: localStorage.getItem('csv_lansia') || defaultUrls.lansia
+        };
+
         function formatToCsvUrl(url) {
             if(!url) return '';
             let clean = url.trim();
@@ -355,15 +347,15 @@
             document.getElementById('syncStatus').innerText = "Memperbarui...";
             let hasSuccess = false;
 
-            if(configUrls.balita) {
+            if(configUrls.balita && !configUrls.balita.includes('TEMPEL_LINK')) {
                 const res = await fetchCsv(formatToCsvUrl(configUrls.balita));
                 if(res) { activeData.balita = parseBalitaCsv(res); hasSuccess = true; }
             }
-            if(configUrls.bumil) {
+            if(configUrls.bumil && !configUrls.bumil.includes('TEMPEL_LINK')) {
                 const res = await fetchCsv(formatToCsvUrl(configUrls.bumil));
                 if(res) { activeData.bumil = parseBumilCsv(res); hasSuccess = true; }
             }
-            if(configUrls.lansia) {
+            if(configUrls.lansia && !configUrls.lansia.includes('TEMPEL_LINK')) {
                 const res = await fetchCsv(formatToCsvUrl(configUrls.lansia));
                 if(res) { activeData.lansia = parseLansiaCsv(res); hasSuccess = true; }
             }
@@ -383,7 +375,6 @@
             try {
                 const res = await fetch(url);
                 const text = await res.text();
-                // Tolak jika balasan berupa HTML/Javascript murni (bukan CSV)
                 if (text.includes('<!DOCTYPE html>') || text.includes('var n=typeof') || text.includes('<html')) {
                     return null;
                 }
