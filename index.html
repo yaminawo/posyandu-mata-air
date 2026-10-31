@@ -313,13 +313,24 @@
     <script>
         const activeData = { balita: [], bumil: [], lansia: [] };
 
-        // ISIKAN LINK CSV GOOGLE SHEETS ANDA DI SINI
-        // Salin tautan CSV dari Google Sheets untuk masing-masing tab ke tanda petik di bawah ini:
         let configUrls = {
             balita: localStorage.getItem('csv_balita') || 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHlp3qaZsk730/pub?gid=0&single=true&output=csv',
-            bumil: localStorage.getItem('csv_bumil') || 'TEMPEL_LINK_CSV_IBU_HAMIL_DI_SINI',
-            lansia: localStorage.getItem('csv_lansia') || 'TEMPEL_LINK_CSV_LANSIA_DI_SINI'
+            bumil: localStorage.getItem('csv_bumil') || '',
+            lansia: localStorage.getItem('csv_lansia') || ''
         };
+
+        // Fungsi Memastikan Link Selalu Murni Format CSV
+        function formatToCsvUrl(url) {
+            if(!url) return '';
+            let clean = url.trim();
+            if (clean.includes('/pubhtml') || clean.includes('/edit')) {
+                clean = clean.replace(/\/pubhtml.*/, '/pub?output=csv').replace(/\/edit.*/, '/pub?output=csv');
+            }
+            if (!clean.includes('output=csv')) {
+                clean += (clean.includes('?') ? '&' : '?') + 'output=csv';
+            }
+            return clean;
+        }
 
         function parseCsvRow(row) {
             let insideQuote = false;
@@ -344,16 +355,16 @@
             document.getElementById('syncStatus').innerText = "Memperbarui...";
             let hasSuccess = false;
 
-            if(configUrls.balita && !configUrls.balita.includes('TEMPEL_LINK')) {
-                const res = await fetchCsv(configUrls.balita);
+            if(configUrls.balita) {
+                const res = await fetchCsv(formatToCsvUrl(configUrls.balita));
                 if(res) { activeData.balita = parseBalitaCsv(res); hasSuccess = true; }
             }
-            if(configUrls.bumil && !configUrls.bumil.includes('TEMPEL_LINK')) {
-                const res = await fetchCsv(configUrls.bumil);
+            if(configUrls.bumil) {
+                const res = await fetchCsv(formatToCsvUrl(configUrls.bumil));
                 if(res) { activeData.bumil = parseBumilCsv(res); hasSuccess = true; }
             }
-            if(configUrls.lansia && !configUrls.lansia.includes('TEMPEL_LINK')) {
-                const res = await fetchCsv(configUrls.lansia);
+            if(configUrls.lansia) {
+                const res = await fetchCsv(formatToCsvUrl(configUrls.lansia));
                 if(res) { activeData.lansia = parseLansiaCsv(res); hasSuccess = true; }
             }
 
@@ -361,7 +372,7 @@
                 document.getElementById('syncStatus').innerText = "Terhubung (Live CSV)";
                 document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
             } else {
-                document.getElementById('syncStatus').innerText = "Belum Ada URL CSV";
+                document.getElementById('syncStatus').innerText = "Gagal Mengambil CSV";
                 document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-amber-400";
             }
 
@@ -371,7 +382,12 @@
         async function fetchCsv(url) {
             try {
                 const res = await fetch(url);
-                return await res.text();
+                const text = await res.text();
+                // Tolak jika balasan berupa HTML/Javascript murni (bukan CSV)
+                if (text.includes('<!DOCTYPE html>') || text.includes('var n=typeof') || text.includes('<html')) {
+                    return null;
+                }
+                return text;
             } catch(e) { return null; }
         }
 
@@ -606,7 +622,7 @@
                 localStorage.setItem('csv_bumil', configUrls.bumil);
                 localStorage.setItem('csv_lansia', configUrls.lansia);
 
-                alert("Tautan CSV tersimpan! Memperbarui data website...");
+                alert("Tautan tersimpan! Memperbarui data website...");
                 closeAdminModal();
                 fetchAllData();
             } else { alert("PIN Admin Salah!"); }
