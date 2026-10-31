@@ -53,7 +53,7 @@
                 <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
                     <div class="bg-emerald-50 p-3 rounded-xl">
                         <span class="text-slate-400 block">Jadwal Rutin</span>
-                        <strong class="text-emerald-800">Setiap Bulan Tgl 15</strong>
+                        <strong class="text-emerald-800">Setiap Tgl 15 Bulan</strong>
                     </div>
                     <div class="bg-teal-50 p-3 rounded-xl">
                         <span class="text-slate-400 block">Jam Operasional</span>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="bg-cyan-50 p-3 rounded-xl col-span-2 sm:col-span-1">
                         <span class="text-slate-400 block">Wilayah Kerja</span>
-                        <strong class="text-cyan-800">Tingkat Satu</strong>
+                        <strong class="text-cyan-800">RT 01 - RT 08 RW 04</strong>
                     </div>
                 </div>
             </div>
@@ -313,13 +313,14 @@
     <script>
         const activeData = { balita: [], bumil: [], lansia: [] };
 
+        // ISIKAN LINK CSV GOOGLE SHEETS ANDA DI SINI
+        // Salin tautan CSV dari Google Sheets untuk masing-masing tab ke tanda petik di bawah ini:
         let configUrls = {
-            balita: localStorage.getItem('csv_balita') || '',
-            bumil: localStorage.getItem('csv_bumil') || '',
-            lansia: localStorage.getItem('csv_lansia') || ''
+            balita: localStorage.getItem('csv_balita') || 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHlp3qaZsk730/pub?gid=0&single=true&output=csv',
+            bumil: localStorage.getItem('csv_bumil') || 'TEMPEL_LINK_CSV_IBU_HAMIL_DI_SINI',
+            lansia: localStorage.getItem('csv_lansia') || 'TEMPEL_LINK_CSV_LANSIA_DI_SINI'
         };
 
-        // Fungsi parsing CSV dengan dukungan quote dan koma
         function parseCsvRow(row) {
             let insideQuote = false;
             let currentStr = '';
@@ -343,15 +344,15 @@
             document.getElementById('syncStatus').innerText = "Memperbarui...";
             let hasSuccess = false;
 
-            if(configUrls.balita) {
+            if(configUrls.balita && !configUrls.balita.includes('TEMPEL_LINK')) {
                 const res = await fetchCsv(configUrls.balita);
                 if(res) { activeData.balita = parseBalitaCsv(res); hasSuccess = true; }
             }
-            if(configUrls.bumil) {
+            if(configUrls.bumil && !configUrls.bumil.includes('TEMPEL_LINK')) {
                 const res = await fetchCsv(configUrls.bumil);
                 if(res) { activeData.bumil = parseBumilCsv(res); hasSuccess = true; }
             }
-            if(configUrls.lansia) {
+            if(configUrls.lansia && !configUrls.lansia.includes('TEMPEL_LINK')) {
                 const res = await fetchCsv(configUrls.lansia);
                 if(res) { activeData.lansia = parseLansiaCsv(res); hasSuccess = true; }
             }
@@ -360,7 +361,7 @@
                 document.getElementById('syncStatus').innerText = "Terhubung (Live CSV)";
                 document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
             } else {
-                document.getElementById('syncStatus').innerText = "Belum Ada URL / Gagal CSV";
+                document.getElementById('syncStatus').innerText = "Belum Ada URL CSV";
                 document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-amber-400";
             }
 
@@ -374,19 +375,14 @@
             } catch(e) { return null; }
         }
 
-        // PEMBERSIHAN DATA BALITA
         function parseBalitaCsv(csvText) {
             const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             const list = [];
             for (let line of lines) {
                 const cols = parseCsvRow(line);
-                
-                // Abaikan baris header atau statistik spreadsheet
                 if (!cols[0] || cols[0].includes("DATA BALITA") || cols[0].includes("Sistem Pencatatan") || cols[0].includes("TOTAL BALITA") || cols[0].includes("Nama Balita") || !isNaN(cols[0])) {
                     continue;
                 }
-                
-                // Kolom G (indeks 6) adalah Status Gizi, Kolom H (indeks 7) adalah Riwayat Kesehatan
                 list.push({
                     nama: cols[0],
                     ortu: cols[1] || '-',
@@ -401,7 +397,6 @@
             return list;
         }
 
-        // PEMBERSIHAN DATA IBU HAMIL
         function parseBumilCsv(csvText) {
             const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             const list = [];
@@ -422,7 +417,6 @@
             return list;
         }
 
-        // PEMBERSIHAN DATA LANSIA
         function parseLansiaCsv(csvText) {
             const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             const list = [];
@@ -467,7 +461,7 @@
 
         function renderBalita() {
             const tbody = document.getElementById('list-balita');
-            tbody.innerHTML = activeData.balita.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Balita belum tersedia/diatur.</td></tr>';
+            tbody.innerHTML = activeData.balita.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Balita belum tersedia.</td></tr>';
             activeData.balita.forEach((item, index) => {
                 const isSehat = item.status.includes('Sehat');
                 const badgeColor = isSehat ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800';
@@ -487,7 +481,7 @@
 
         function renderBumil() {
             const tbody = document.getElementById('list-bumil');
-            tbody.innerHTML = activeData.bumil.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Ibu Hamil belum tersedia/diatur.</td></tr>';
+            tbody.innerHTML = activeData.bumil.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Ibu Hamil belum tersedia.</td></tr>';
             activeData.bumil.forEach((item, index) => {
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('bumil', ${index})">
@@ -505,7 +499,7 @@
 
         function renderLansia() {
             const tbody = document.getElementById('list-lansia');
-            tbody.innerHTML = activeData.lansia.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Lansia belum tersedia/diatur.</td></tr>';
+            tbody.innerHTML = activeData.lansia.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Lansia belum tersedia.</td></tr>';
             activeData.lansia.forEach((item, index) => {
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('lansia', ${index})">
