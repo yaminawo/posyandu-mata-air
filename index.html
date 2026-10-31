@@ -330,7 +330,7 @@
             lansia: localStorage.getItem('csv_lansia') || defaultUrls.lansia
         };
 
-        // Timestamp unik (&_t=...) mengambil data TERBARU dari Google Sheets (bukan dari cache memori)
+        // Menambahkan timestamp unik (&_t=...) agar browser selalu mengambil data TERBARU dari Google Sheets (bukan dari cache memori)
         function formatToCsvUrl(url) {
             if(!url) return '';
             let clean = url.trim();
