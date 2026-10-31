@@ -10,9 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    </style>
+    <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
@@ -45,7 +43,6 @@
 
         <!-- SECTION: PROFIL POSYANDU & ALAMAT LOKASI -->
         <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Profil Posyandu -->
             <div class="md:col-span-2 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
                 <h2 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
                     <i class="fa-solid fa-circle-info text-emerald-600 mr-2"></i> Profil Posyandu Mata Air
@@ -69,7 +66,6 @@
                 </div>
             </div>
 
-            <!-- Alamat & Kontak -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
                 <div>
                     <h2 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
@@ -101,7 +97,6 @@
                     <h3 class="font-bold text-xs text-slate-800">Ny. Sesilia T.R. Hayon</h3>
                     <p class="text-[11px] text-emerald-600 font-medium">Ketua Kader Posyandu</p>
                 </div>
-
                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
                     <div class="w-10 h-10 mx-auto bg-teal-100 text-teal-700 rounded-full flex items-center justify-center font-bold mb-2">
                         <i class="fa-solid fa-pen-to-square"></i>
@@ -109,7 +104,6 @@
                     <h3 class="font-bold text-xs text-slate-800">Ny. Clarissa Dewi</h3>
                     <p class="text-[11px] text-teal-600 font-medium">Sekretaris</p>
                 </div>
-
                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
                     <div class="w-10 h-10 mx-auto bg-cyan-100 text-cyan-700 rounded-full flex items-center justify-center font-bold mb-2">
                         <i class="fa-solid fa-wallet"></i>
@@ -117,7 +111,6 @@
                     <h3 class="font-bold text-xs text-slate-800">Ny. Nurul Hidayah</h3>
                     <p class="text-[11px] text-cyan-600 font-medium">Bendahara</p>
                 </div>
-
                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
                     <div class="w-10 h-10 mx-auto bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold mb-2">
                         <i class="fa-solid fa-weight-scale"></i>
@@ -125,7 +118,6 @@
                     <h3 class="font-bold text-xs text-slate-800">Ny. Rina Kartika</h3>
                     <p class="text-[11px] text-blue-600 font-medium">Kader Penimbangan Balita</p>
                 </div>
-
                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center col-span-2 sm:col-span-1">
                     <div class="w-10 h-10 mx-auto bg-purple-100 text-purple-700 rounded-full flex items-center justify-center font-bold mb-2">
                         <i class="fa-solid fa-hand-holding-medical"></i>
@@ -142,7 +134,6 @@
                 <i class="fa-solid fa-chart-line text-emerald-600 mr-2"></i> Ringkasan Statistik Publik
             </h2>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                <!-- Total Balita -->
                 <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 mb-2">
                         <span class="text-xs font-semibold uppercase tracking-wider">Total Balita</span>
@@ -151,8 +142,6 @@
                     <div class="text-2xl sm:text-3xl font-bold text-slate-800" id="statBalita">0</div>
                     <p class="text-[11px] text-slate-400 mt-1"><i class="fa-solid fa-child text-blue-500 mr-1"></i>Usia 0-5 Tahun</p>
                 </div>
-
-                <!-- Balita Sehat -->
                 <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 mb-2">
                         <span class="text-xs font-semibold uppercase tracking-wider">Balita Sehat</span>
@@ -161,8 +150,6 @@
                     <div class="text-2xl sm:text-3xl font-bold text-emerald-600" id="statBalitaSehat">0</div>
                     <p class="text-[11px] text-emerald-600 font-medium mt-1" id="statSehatPercent">0% dari Total</p>
                 </div>
-
-                <!-- Balita Kurang Gizi -->
                 <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 mb-2">
                         <span class="text-xs font-semibold uppercase tracking-wider">Kurang Gizi</span>
@@ -171,8 +158,6 @@
                     <div class="text-2xl sm:text-3xl font-bold text-amber-600" id="statBalitaGizi">0</div>
                     <p class="text-[11px] text-amber-600 font-medium mt-1" id="statGiziPercent">0% Perlu Pemantauan</p>
                 </div>
-
-                <!-- Ibu Hamil -->
                 <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 mb-2">
                         <span class="text-xs font-semibold uppercase tracking-wider">Ibu Hamil</span>
@@ -181,8 +166,6 @@
                     <div class="text-2xl sm:text-3xl font-bold text-slate-800" id="statIbuHamil">0</div>
                     <p class="text-[11px] text-slate-400 mt-1"><i class="fa-solid fa-heart text-rose-500 mr-1"></i>Dalam Perawatan</p>
                 </div>
-
-                <!-- Lansia -->
                 <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition col-span-2 sm:col-span-1">
                     <div class="flex items-center justify-between text-slate-500 mb-2">
                         <span class="text-xs font-semibold uppercase tracking-wider">Lansia</span>
@@ -223,9 +206,7 @@
                                 <th class="px-5 py-3 text-right">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="list-balita" class="divide-y divide-slate-100 text-slate-700">
-                            <!-- Populated via JS -->
-                        </tbody>
+                        <tbody id="list-balita" class="divide-y divide-slate-100 text-slate-700"></tbody>
                     </table>
                 </div>
             </div>
@@ -243,9 +224,7 @@
                                 <th class="px-5 py-3 text-right">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="list-bumil" class="divide-y divide-slate-100 text-slate-700">
-                            <!-- Populated via JS -->
-                        </tbody>
+                        <tbody id="list-bumil" class="divide-y divide-slate-100 text-slate-700"></tbody>
                     </table>
                 </div>
             </div>
@@ -263,9 +242,7 @@
                                 <th class="px-5 py-3 text-right">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="list-lansia" class="divide-y divide-slate-100 text-slate-700">
-                            <!-- Populated via JS -->
-                        </tbody>
+                        <tbody id="list-lansia" class="divide-y divide-slate-100 text-slate-700"></tbody>
                     </table>
                 </div>
             </div>
@@ -297,9 +274,7 @@
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
-            <div id="modalDetailBody" class="mt-4 text-xs space-y-4">
-                <!-- Data Detail Dinamis Disini -->
-            </div>
+            <div id="modalDetailBody" class="mt-4 text-xs space-y-4"></div>
             <div class="mt-6 pt-3 border-t border-slate-100 flex justify-end">
                 <button onclick="closeModalDetail()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold">Tutup</button>
             </div>
@@ -310,94 +285,139 @@
     <div id="modalAdmin" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                <h3 class="font-bold text-slate-800 text-base">Akses Khusus Admin</h3>
+                <h3 class="font-bold text-slate-800 text-base">Akses Khusus Admin CSV</h3>
                 <button onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="space-y-4 mt-4 text-xs">
+            <div class="space-y-3 mt-4 text-xs">
                 <div>
-                    <label class="font-semibold text-slate-700">Masukkan PIN Admin:</label>
-                    <input type="password" id="adminPin" placeholder="PIN Default: 1234" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <label class="font-semibold text-slate-700">PIN Admin:</label>
+                    <input type="password" id="adminPin" placeholder="PIN: 1234" class="w-full mt-1 px-3 py-2 border rounded-xl focus:ring-2 focus:ring-emerald-500">
                 </div>
                 <div>
-                    <label class="font-semibold text-slate-700">URL Spreadsheet CSV:</label>
-                    <input type="text" id="sheetUrl" placeholder="https://docs.google.com/.../pub?output=csv" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <label class="font-semibold text-slate-700">URL CSV Tab Balita:</label>
+                    <input type="text" id="urlBalita" placeholder="Link CSV Tab Balita..." class="w-full mt-1 px-3 py-2 border rounded-xl">
                 </div>
-                <button onclick="saveAdminConfig()" class="w-full py-2.5 bg-emerald-600 text-white font-bold rounded-xl shadow hover:bg-emerald-700 transition">Simpan Konfigurasi</button>
+                <div>
+                    <label class="font-semibold text-slate-700">URL CSV Tab Ibu Hamil:</label>
+                    <input type="text" id="urlBumil" placeholder="Link CSV Tab Ibu Hamil..." class="w-full mt-1 px-3 py-2 border rounded-xl">
+                </div>
+                <div>
+                    <label class="font-semibold text-slate-700">URL CSV Tab Lansia:</label>
+                    <input type="text" id="urlLansia" placeholder="Link CSV Tab Lansia..." class="w-full mt-1 px-3 py-2 border rounded-xl">
+                </div>
+                <button onclick="saveAdminConfig()" class="w-full py-2.5 bg-emerald-600 text-white font-bold rounded-xl shadow hover:bg-emerald-700 transition mt-2">Simpan & Sinkronkan</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Data Cadangan Saja jika CSV belum disetting
-        const defaultData = {
-            balita: [
-                { nama: "Anindya Kirana", ortu: "Ibu Rahma", jk: "Perempuan", umur: 18, bb: 10.2, tb: 80, status: "Balita Sehat", riwayat: "Vaksin DPT 3, Vit A Merah" },
-                { nama: "Muhammad Rayyan", ortu: "Ibu Siti Aisyah", jk: "Laki-laki", umur: 24, bb: 11.5, tb: 86, status: "Balita Sehat", riwayat: "Vaksin MR, Imunisasi Rutin" },
-                { nama: "Daffa Ibnu", ortu: "Ibu Dewi", jk: "Laki-laki", umur: 12, bb: 7.1, tb: 68, status: "Kurang Gizi", riwayat: "Pendampingan PMT 3 Bulan" }
-            ],
-            bumil: [
-                { nama: "Ny. Clarissa Dewi", usia: 27, uk: 22, bb: 61.5, td: "115/75", catatan: "Suplemen Fe 30 Tablet, TT3" },
-                { nama: "Ny. Nurul Hidayah", usia: 31, uk: 34, bb: 68.0, td: "125/80", catatan: "Kondisi Sehat, Persiapan Melahirkan" }
-            ],
-            lansia: [
-                { nama: "Mbah Sastro", usia: 68, td: "130/85", gula: 110, asamUrat: 6.1, status: "Kesehatan Baik" },
-                { nama: "Nenek Aminah", usia: 72, td: "140/90", gula: 135, asamUrat: 5.8, status: "Perlu Cek Tekanan Darah" }
-            ]
+        const activeData = { balita: [], bumil: [], lansia: [] };
+
+        let configUrls = {
+            balita: localStorage.getItem('csv_balita') || '',
+            bumil: localStorage.getItem('csv_bumil') || '',
+            lansia: localStorage.getItem('csv_lansia') || ''
         };
 
-        let activeData = JSON.parse(JSON.stringify(defaultData));
-        let csvUrl = localStorage.getItem('posyandu_csv_url') || '';
+        async function fetchAllData() {
+            document.getElementById('syncStatus').innerText = "Memperbarui...";
+            let hasSuccess = false;
 
-        // Ambil Data CSV dari Google Sheets
-        async function fetchLiveCsv() {
-            if (!csvUrl) {
-                document.getElementById('syncStatus').innerText = "Data Lokal (Belum Terhubung Sheets)";
-                document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-amber-400";
-                renderAll();
-                return;
+            if(configUrls.balita) {
+                const res = await fetchCsv(configUrls.balita);
+                if(res) { activeData.balita = parseBalitaCsv(res); hasSuccess = true; }
+            }
+            if(configUrls.bumil) {
+                const res = await fetchCsv(configUrls.bumil);
+                if(res) { activeData.bumil = parseBumilCsv(res); hasSuccess = true; }
+            }
+            if(configUrls.lansia) {
+                const res = await fetchCsv(configUrls.lansia);
+                if(res) { activeData.lansia = parseLansiaCsv(res); hasSuccess = true; }
             }
 
-            try {
-                document.getElementById('syncStatus').innerText = "Memperbarui...";
-                const res = await fetch(csvUrl);
-                const text = await res.text();
-                parseCsvToData(text);
-                
+            if(hasSuccess) {
                 document.getElementById('syncStatus').innerText = "Terhubung (Live CSV)";
                 document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
-            } catch (err) {
-                console.error(err);
-                document.getElementById('syncStatus').innerText = "Gagal Mengambil Data CSV";
-                document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-rose-500";
-                renderAll();
+            } else {
+                document.getElementById('syncStatus').innerText = "Belum Ada URL / Gagal CSV";
+                document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-amber-400";
             }
+
+            renderAll();
         }
 
-        function parseCsvToData(csvText) {
+        async function fetchCsv(url) {
+            try {
+                const res = await fetch(url);
+                return await res.text();
+            } catch(e) { return null; }
+        }
+
+        // PEMBERSIHAN DATA BALITA
+        function parseBalitaCsv(csvText) {
             const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-            if (lines.length < 2) return;
-
-            const parsedBalita = [];
-            for (let i = 1; i < lines.length; i++) {
-                const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
-                if (cols.length >= 2 && cols[0]) {
-                    parsedBalita.push({
-                        nama: cols[0] || 'Tanpa Nama',
-                        ortu: cols[1] || '-',
-                        jk: cols[2] || 'Laki-laki',
-                        umur: cols[3] || '0',
-                        bb: cols[4] || '0',
-                        tb: cols[5] || '0',
-                        status: cols[6] || 'Balita Sehat',
-                        riwayat: cols[7] || 'Pemeriksaan Rutin'
-                    });
+            const list = [];
+            for (let line of lines) {
+                const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
+                // Filter melempar baris judul/header
+                if (!cols[0] || cols[0].includes("DATA BALITA") || cols[0].includes("Sistem Pencatatan") || cols[0].includes("TOTAL BALITA") || cols[0].includes("Nama Balita") || !isNaN(cols[0])) {
+                    continue;
                 }
+                list.push({
+                    nama: cols[0],
+                    ortu: cols[1] || '-',
+                    jk: cols[2] || 'Laki-laki',
+                    umur: cols[3] || '0',
+                    bb: cols[4] || '0',
+                    tb: cols[5] || '0',
+                    status: cols[6] || 'Balita Sehat',
+                    riwayat: cols[7] || 'Pemeriksaan Rutin'
+                });
             }
+            return list;
+        }
 
-            if (parsedBalita.length > 0) {
-                activeData.balita = parsedBalita;
+        // PEMBERSIHAN DATA IBU HAMIL
+        function parseBumilCsv(csvText) {
+            const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            const list = [];
+            for (let line of lines) {
+                const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
+                if (!cols[0] || cols[0].includes("DATA IBU HAMIL") || cols[0].includes("Pemantauan Kesehatan") || cols[0].includes("TOTAL IBU HAMIL") || cols[0].includes("Nama Ibu") || !isNaN(cols[0])) {
+                    continue;
+                }
+                list.push({
+                    nama: cols[0],
+                    usia: cols[1] || '0',
+                    uk: cols[2] || '0',
+                    bb: cols[3] || '0',
+                    td: cols[4] || '-',
+                    catatan: cols[5] || '-'
+                });
             }
-            renderAll();
+            return list;
+        }
+
+        // PEMBERSIHAN DATA LANSIA
+        function parseLansiaCsv(csvText) {
+            const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            const list = [];
+            for (let line of lines) {
+                const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
+                if (!cols[0] || cols[0].includes("DATA LANSIA") || cols[0].includes("Pemeriksaan Kesehatan") || cols[0].includes("TOTAL LANSIA") || cols[0].includes("Nama Lansia") || !isNaN(cols[0])) {
+                    continue;
+                }
+                list.push({
+                    nama: cols[0],
+                    usia: cols[1] || '0',
+                    td: cols[2] || '-',
+                    gula: cols[3] || '0',
+                    asamUrat: cols[4] || '0',
+                    status: cols[5] || 'Kesehatan Baik'
+                });
+            }
+            return list;
         }
 
         function renderAll() {
@@ -424,7 +444,7 @@
 
         function renderBalita() {
             const tbody = document.getElementById('list-balita');
-            tbody.innerHTML = '';
+            tbody.innerHTML = activeData.balita.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Balita belum tersedia/diatur.</td></tr>';
             activeData.balita.forEach((item, index) => {
                 const isSehat = item.status.includes('Sehat');
                 const badgeColor = isSehat ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800';
@@ -444,7 +464,7 @@
 
         function renderBumil() {
             const tbody = document.getElementById('list-bumil');
-            tbody.innerHTML = '';
+            tbody.innerHTML = activeData.bumil.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Ibu Hamil belum tersedia/diatur.</td></tr>';
             activeData.bumil.forEach((item, index) => {
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('bumil', ${index})">
@@ -462,7 +482,7 @@
 
         function renderLansia() {
             const tbody = document.getElementById('list-lansia');
-            tbody.innerHTML = '';
+            tbody.innerHTML = activeData.lansia.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Lansia belum tersedia/diatur.</td></tr>';
             activeData.lansia.forEach((item, index) => {
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('lansia', ${index})">
@@ -540,9 +560,7 @@
             document.getElementById('modalDetail').classList.remove('hidden');
         }
 
-        function closeModalDetail() {
-            document.getElementById('modalDetail').classList.add('hidden');
-        }
+        function closeModalDetail() { document.getElementById('modalDetail').classList.add('hidden'); }
 
         function switchTab(tab) {
             ['balita', 'bumil', 'lansia'].forEach(t => {
@@ -554,28 +572,32 @@
         }
 
         function openAdminModal() { 
-            document.getElementById('sheetUrl').value = csvUrl;
+            document.getElementById('urlBalita').value = configUrls.balita;
+            document.getElementById('urlBumil').value = configUrls.bumil;
+            document.getElementById('urlLansia').value = configUrls.lansia;
             document.getElementById('modalAdmin').classList.remove('hidden'); 
         }
         function closeAdminModal() { document.getElementById('modalAdmin').classList.add('hidden'); }
         
         function saveAdminConfig() {
-            const pin = document.getElementById('adminPin').value;
-            if(pin === '1234') {
-                const url = document.getElementById('sheetUrl').value.trim();
-                localStorage.setItem('posyandu_csv_url', url);
-                csvUrl = url;
-                alert("Konfigurasi tersimpan. Memperbarui data website...");
+            if(document.getElementById('adminPin').value === '1234') {
+                configUrls.balita = document.getElementById('urlBalita').value.trim();
+                configUrls.bumil = document.getElementById('urlBumil').value.trim();
+                configUrls.lansia = document.getElementById('urlLansia').value.trim();
+
+                localStorage.setItem('csv_balita', configUrls.balita);
+                localStorage.setItem('csv_bumil', configUrls.bumil);
+                localStorage.setItem('csv_lansia', configUrls.lansia);
+
+                alert("Tautan CSV tersimpan! Memperbarui data website...");
                 closeAdminModal();
-                fetchLiveCsv();
-            } else {
-                alert("PIN Admin Salah!");
-            }
+                fetchAllData();
+            } else { alert("PIN Admin Salah!"); }
         }
 
         window.onload = function() {
-            fetchLiveCsv();
-            setInterval(fetchLiveCsv, 30000); // Otomatis refresh setiap 30 detik
+            fetchAllData();
+            setInterval(fetchAllData, 30000);
         };
     </script>
 </body>
