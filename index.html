@@ -319,6 +319,26 @@
             lansia: localStorage.getItem('csv_lansia') || ''
         };
 
+        // Fungsi parsing CSV dengan dukungan quote dan koma
+        function parseCsvRow(row) {
+            let insideQuote = false;
+            let currentStr = '';
+            const cols = [];
+            for (let i = 0; i < row.length; i++) {
+                const char = row[i];
+                if (char === '"') {
+                    insideQuote = !insideQuote;
+                } else if (char === ',' && !insideQuote) {
+                    cols.push(currentStr.trim());
+                    currentStr = '';
+                } else {
+                    currentStr += char;
+                }
+            }
+            cols.push(currentStr.trim());
+            return cols.map(c => c.replace(/^"|"$/g, '').trim());
+        }
+
         async function fetchAllData() {
             document.getElementById('syncStatus').innerText = "Memperbarui...";
             let hasSuccess = false;
@@ -359,11 +379,14 @@
             const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             const list = [];
             for (let line of lines) {
-                const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
-                // Filter melempar baris judul/header
+                const cols = parseCsvRow(line);
+                
+                // Abaikan baris header atau statistik spreadsheet
                 if (!cols[0] || cols[0].includes("DATA BALITA") || cols[0].includes("Sistem Pencatatan") || cols[0].includes("TOTAL BALITA") || cols[0].includes("Nama Balita") || !isNaN(cols[0])) {
                     continue;
                 }
+                
+                // Kolom G (indeks 6) adalah Status Gizi, Kolom H (indeks 7) adalah Riwayat Kesehatan
                 list.push({
                     nama: cols[0],
                     ortu: cols[1] || '-',
@@ -383,7 +406,7 @@
             const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             const list = [];
             for (let line of lines) {
-                const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
+                const cols = parseCsvRow(line);
                 if (!cols[0] || cols[0].includes("DATA IBU HAMIL") || cols[0].includes("Pemantauan Kesehatan") || cols[0].includes("TOTAL IBU HAMIL") || cols[0].includes("Nama Ibu") || !isNaN(cols[0])) {
                     continue;
                 }
@@ -404,7 +427,7 @@
             const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             const list = [];
             for (let line of lines) {
-                const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
+                const cols = parseCsvRow(line);
                 if (!cols[0] || cols[0].includes("DATA LANSIA") || cols[0].includes("Pemeriksaan Kesehatan") || cols[0].includes("TOTAL LANSIA") || cols[0].includes("Nama Lansia") || !isNaN(cols[0])) {
                     continue;
                 }
