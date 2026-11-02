@@ -45,6 +45,18 @@
     <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full space-y-8">
 
+        <!-- SECTION: INFORMASI & PENGUMUMAN DARI SHEET -->
+        <section class="bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-teal-500/10 p-6 rounded-2xl border border-emerald-200/60 shadow-sm">
+            <h2 class="text-lg font-bold text-slate-800 mb-3 flex items-center">
+                <i class="fa-solid fa-bullhorn text-emerald-600 mr-2"></i> Informasi & Pengumuman Posyandu
+            </h2>
+            <div id="container-informasi" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                <div class="p-4 bg-white/80 backdrop-blur rounded-xl border border-slate-200/60 animate-pulse">
+                    <p class="text-slate-400">Memuat informasi terkini...</p>
+                </div>
+            </div>
+        </section>
+
         <!-- SECTION: STRUKTUR KADER POSYANDU -->
         <section class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
             <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
@@ -113,7 +125,7 @@
                 </div>
                 <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 mb-2">
-                        <span class="text-xs font-semibold uppercase tracking-wider">Kurang Gizi</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider">Perlu Perhatian</span>
                         <div class="p-2 bg-amber-50 text-amber-600 rounded-lg"><i class="fa-solid fa-triangle-exclamation text-lg"></i></div>
                     </div>
                     <div class="text-2xl sm:text-3xl font-bold text-amber-600" id="statBalitaGizi">0</div>
@@ -144,7 +156,7 @@
                 <h2 class="text-lg font-bold text-slate-800 flex items-center">
                     <i class="fa-solid fa-users text-emerald-600 mr-2"></i> Daftar Peserta Posyandu Mata Air
                 </h2>
-                <span class="text-xs text-slate-500">*Klik pada nama peserta untuk melihat rincian riwayat kesehatan</span>
+                <span class="text-xs text-slate-500">*Klik pada nama peserta untuk melihat rincian riwayat kesehatan lengkap</span>
             </div>
 
             <!-- Tab Navigasi Publik -->
@@ -161,6 +173,7 @@
                         <thead class="bg-slate-50 text-slate-500 font-semibold uppercase border-b border-slate-200">
                             <tr>
                                 <th class="px-5 py-3">Nama Balita</th>
+                                <th class="px-5 py-3">NIK</th>
                                 <th class="px-5 py-3">Orang Tua</th>
                                 <th class="px-5 py-3">JK / Usia</th>
                                 <th class="px-5 py-3">Status Gizi</th>
@@ -266,25 +279,30 @@
                     <label class="font-semibold text-slate-700">URL CSV Tab Lansia:</label>
                     <input type="text" id="urlLansia" placeholder="Link CSV Tab Lansia..." class="w-full mt-1 px-3 py-2 border rounded-xl">
                 </div>
+                <div>
+                    <label class="font-semibold text-slate-700">URL CSV Tab Informasi:</label>
+                    <input type="text" id="urlInformasi" placeholder="Link CSV Tab Informasi..." class="w-full mt-1 px-3 py-2 border rounded-xl">
+                </div>
                 <button onclick="saveAdminConfig()" class="w-full py-2.5 bg-emerald-600 text-white font-bold rounded-xl shadow hover:bg-emerald-700 transition mt-2">Simpan & Sinkronkan</button>
             </div>
         </div>
     </div>
 
     <script>
-        const activeData = { balita: [], bumil: [], lansia: [] };
+        const activeData = { balita: [], bumil: [], lansia: [], informasi: [] };
 
-        // URL Spreadsheet Asli Posyandu Anda
         let defaultUrls = {
             balita: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHIp3qaZsk730/pub?gid=0&single=true&output=csv',
             bumil: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHIp3qaZsk730/pub?gid=1&single=true&output=csv',
-            lansia: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHIp3qaZsk730/pub?gid=2&single=true&output=csv'
+            lansia: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHIp3qaZsk730/pub?gid=2&single=true&output=csv',
+            informasi: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHIp3qaZsk730/pub?gid=3&single=true&output=csv'
         };
 
         let configUrls = {
             balita: localStorage.getItem('csv_balita') || defaultUrls.balita,
             bumil: localStorage.getItem('csv_bumil') || defaultUrls.bumil,
-            lansia: localStorage.getItem('csv_lansia') || defaultUrls.lansia
+            lansia: localStorage.getItem('csv_lansia') || defaultUrls.lansia,
+            informasi: localStorage.getItem('csv_informasi') || defaultUrls.informasi
         };
 
         function formatToCsvUrl(url) {
@@ -335,6 +353,10 @@
                 const res = await fetchCsv(formatToCsvUrl(configUrls.lansia));
                 if(res) { activeData.lansia = parseLansiaCsv(res); hasSuccess = true; }
             }
+            if(configUrls.informasi) {
+                const res = await fetchCsv(formatToCsvUrl(configUrls.informasi));
+                if(res) { activeData.informasi = parseInformasiCsv(res); hasSuccess = true; }
+            }
 
             if(hasSuccess) {
                 document.getElementById('syncStatus').innerText = "Terhubung (Live CSV)";
@@ -368,13 +390,18 @@
                 }
                 list.push({
                     nama: cols[0],
-                    ortu: cols[1] || '-',
-                    jk: cols[2] || 'Laki-laki',
-                    umur: cols[3] || '0',
-                    bb: cols[4] || '0',
-                    tb: cols[5] || '0',
-                    status: cols[6] || 'Balita Sehat',
-                    riwayat: cols[7] || 'Pemeriksaan Rutin'
+                    nik: cols[1] || '-',
+                    tglLahir: cols[2] || '-',
+                    jk: cols[3] || 'Laki-laki',
+                    ortu: cols[4] || '-',
+                    usiaThn: cols[5] || '0',
+                    usiaBln: cols[6] || '0',
+                    lk: cols[7] || '0',
+                    ll: cols[8] || '0',
+                    bb: cols[9] || '0',
+                    tb: cols[10] || '0',
+                    status: cols[11] || 'Balita Sehat',
+                    riwayat: cols[12] || 'Pemeriksaan Rutin'
                 });
             }
             return list;
@@ -390,11 +417,16 @@
                 }
                 list.push({
                     nama: cols[0],
-                    usia: cols[1] || '0',
-                    uk: cols[2] || '0',
-                    bb: cols[3] || '0',
-                    td: cols[4] || '-',
-                    catatan: cols[5] || '-'
+                    nik: cols[1] || '-',
+                    alamat: cols[2] || '-',
+                    kehamilanKe: cols[3] || '1',
+                    usia: cols[4] || '0',
+                    uk: cols[5] || '0',
+                    golDarah: cols[6] || '-',
+                    noHp: cols[7] || '-',
+                    bb: cols[8] || '0',
+                    td: cols[9] || '-',
+                    catatan: cols[10] || '-'
                 });
             }
             return list;
@@ -410,11 +442,29 @@
                 }
                 list.push({
                     nama: cols[0],
-                    usia: cols[1] || '0',
-                    td: cols[2] || '-',
-                    gula: cols[3] || '0',
-                    asamUrat: cols[4] || '0',
-                    status: cols[5] || 'Kesehatan Baik'
+                    nik: cols[1] || '-',
+                    usia: cols[2] || '0',
+                    td: cols[3] || '-',
+                    gula: cols[4] || '0',
+                    asamUrat: cols[5] || '0',
+                    status: cols[6] || 'Kesehatan Baik'
+                });
+            }
+            return list;
+        }
+
+        // Parsing CSV Informasi (Sheet Informasi)
+        function parseInformasiCsv(csvText) {
+            const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            const list = [];
+            for (let line of lines) {
+                const cols = parseCsvRow(line);
+                if (!cols[0] || cols[0].toLowerCase().includes("informasi") || cols[0].startsWith(":")) {
+                    continue;
+                }
+                list.push({
+                    judul: cols[0].replace(':', '').trim(),
+                    isi: cols[1] || cols[0]
                 });
             }
             return list;
@@ -422,15 +472,36 @@
 
         function renderAll() {
             updateStats();
+            renderInformasi();
             renderBalita();
             renderBumil();
             renderLansia();
         }
 
+        function renderInformasi() {
+            const container = document.getElementById('container-informasi');
+            if (!activeData.informasi.length) {
+                container.innerHTML = `
+                    <div class="p-4 bg-white/80 backdrop-blur rounded-xl border border-slate-200/60 col-span-full text-slate-500">
+                        <i class="fa-solid fa-circle-info mr-2 text-emerald-600"></i> Kegiatan Posyandu dilaksanakan setiap bulan tanggal 10 di Kantor Posyandu Mata Air.
+                    </div>`;
+                return;
+            }
+            container.innerHTML = '';
+            activeData.informasi.forEach(info => {
+                container.innerHTML += `
+                    <div class="p-4 bg-white/90 backdrop-blur rounded-xl border border-emerald-100 shadow-sm space-y-1">
+                        <span class="font-bold text-emerald-800 uppercase text-[10px] tracking-wider block">${info.judul}</span>
+                        <p class="text-slate-700 font-medium">${info.isi}</p>
+                    </div>
+                `;
+            });
+        }
+
         function updateStats() {
             const totalBalita = activeData.balita.length;
-            const balitaSehat = activeData.balita.filter(b => b.status.includes("Sehat")).length;
-            const balitaGizi = activeData.balita.filter(b => b.status.includes("Gizi") || b.status.includes("Kurang")).length;
+            const balitaSehat = activeData.balita.filter(b => b.status.toLowerCase().includes("sehat")).length;
+            const balitaGizi = activeData.balita.filter(b => b.status.toLowerCase().includes("gizi") || b.status.toLowerCase().includes("kurang") || b.status.toLowerCase().includes("perhatian")).length;
 
             document.getElementById('statBalita').innerText = totalBalita;
             document.getElementById('statBalitaSehat').innerText = balitaSehat;
@@ -444,15 +515,16 @@
 
         function renderBalita() {
             const tbody = document.getElementById('list-balita');
-            tbody.innerHTML = activeData.balita.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Balita belum tersedia.</td></tr>';
+            tbody.innerHTML = activeData.balita.length ? '' : '<tr><td colspan="6" class="p-4 text-center text-slate-400">Data Balita belum tersedia.</td></tr>';
             activeData.balita.forEach((item, index) => {
-                const isSehat = item.status.includes('Sehat');
+                const isSehat = item.status.toLowerCase().includes('sehat');
                 const badgeColor = isSehat ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800';
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('balita', ${index})">
                         <td class="px-5 py-3 font-bold text-slate-800">${item.nama}</td>
+                        <td class="px-5 py-3 font-mono text-slate-500">${item.nik}</td>
                         <td class="px-5 py-3">${item.ortu}</td>
-                        <td class="px-5 py-3">${item.jk} / ${item.umur} Bln</td>
+                        <td class="px-5 py-3">${item.jk} / ${item.usiaThn} Thn ${item.usiaBln} Bln</td>
                         <td class="px-5 py-3"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${badgeColor}">${item.status}</span></td>
                         <td class="px-5 py-3 text-right">
                             <button class="px-3 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-semibold rounded-lg text-xs">Lihat Detail</button>
@@ -506,14 +578,23 @@
                     <div class="bg-emerald-50/50 p-3 rounded-xl space-y-1">
                         <p class="text-slate-400">Nama Balita</p>
                         <p class="text-base font-bold text-slate-800">${b.nama}</p>
+                        <p class="text-[11px] font-mono text-slate-500">NIK: ${b.nik}</p>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Orang Tua / Wali</span><strong>${b.ortu}</strong></div>
-                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia / Jenis Kelamin</span><strong>${b.umur} Bulan / ${b.jk}</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Tgl Lahir / Jenis Kelamin</span><strong>${b.tglLahir} / ${b.jk}</strong></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia</span><strong>${b.usiaThn} Thn ${b.usiaBln} Bln</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Status Gizi</span><strong class="text-emerald-700">${b.status}</strong></div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Berat Badan (BB)</span><strong class="text-emerald-600">${b.bb} kg</strong></div>
                         <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Tinggi Badan (TB)</span><strong class="text-emerald-600">${b.tb} cm</strong></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Lingkar Kepala</span><strong>${b.lk} cm</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Lingkar Lengan</span><strong>${b.ll} cm</strong></div>
                     </div>
                     <div class="bg-slate-50 p-3 rounded-xl">
                         <span class="text-slate-400 block">Riwayat Kesehatan & Imunisasi:</span>
@@ -526,14 +607,23 @@
                     <div class="bg-teal-50/50 p-3 rounded-xl space-y-1">
                         <p class="text-slate-400">Nama Ibu Hamil</p>
                         <p class="text-base font-bold text-slate-800">${m.nama}</p>
+                        <p class="text-[11px] font-mono text-slate-500">NIK: ${m.nik}</p>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia Ibu</span><strong>${m.usia} Tahun</strong></div>
-                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia Kandungan</span><strong class="text-teal-600">${m.uk} Minggu</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia Kandungan</span><strong class="text-teal-600">${m.uk} Minggu (Kehamian ke-${m.kehamilanKe})</strong></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Golongan Darah</span><strong>${m.golDarah}</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">No. HP</span><strong>${m.noHp}</strong></div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Berat Badan (BB)</span><strong>${m.bb} kg</strong></div>
                         <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Tekanan Darah (TD)</span><strong>${m.td} mmHg</strong></div>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <span class="text-slate-400 block">Alamat Domisili:</span>
+                        <p class="font-medium mt-1 text-slate-700">${m.alamat}</p>
                     </div>
                     <div class="bg-slate-50 p-3 rounded-xl">
                         <span class="text-slate-400 block">Catatan Suplemen & Pemeriksaan:</span>
@@ -546,14 +636,19 @@
                     <div class="bg-purple-50/50 p-3 rounded-xl space-y-1">
                         <p class="text-slate-400">Nama Lansia</p>
                         <p class="text-base font-bold text-slate-800">${l.nama}</p>
+                        <p class="text-[11px] font-mono text-slate-500">NIK: ${l.nik}</p>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia</span><strong>${l.usia} Tahun</strong></div>
                         <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Tekanan Darah</span><strong>${l.td} mmHg</strong></div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
-                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Gula Darah</span><strong>${l.gula} mg/dL</strong></div>
-                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Asam Urat</span><strong>${l.asamUrat} mg/dL</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Gula Darah</span><strong class="text-purple-700">${l.gula} mg/dL</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Asam Urat</span><strong class="text-purple-700">${l.asamUrat} mg/dL</strong></div>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <span class="text-slate-400 block">Status Pemeriksaan:</span>
+                        <p class="font-bold mt-1 text-purple-700">${l.status}</p>
                     </div>
                 `;
             }
@@ -575,6 +670,7 @@
             document.getElementById('urlBalita').value = configUrls.balita;
             document.getElementById('urlBumil').value = configUrls.bumil;
             document.getElementById('urlLansia').value = configUrls.lansia;
+            document.getElementById('urlInformasi').value = configUrls.informasi;
             document.getElementById('modalAdmin').classList.remove('hidden'); 
         }
         function closeAdminModal() { document.getElementById('modalAdmin').classList.add('hidden'); }
@@ -584,10 +680,12 @@
                 configUrls.balita = document.getElementById('urlBalita').value.trim();
                 configUrls.bumil = document.getElementById('urlBumil').value.trim();
                 configUrls.lansia = document.getElementById('urlLansia').value.trim();
+                configUrls.informasi = document.getElementById('urlInformasi').value.trim();
 
                 localStorage.setItem('csv_balita', configUrls.balita);
                 localStorage.setItem('csv_bumil', configUrls.bumil);
                 localStorage.setItem('csv_lansia', configUrls.lansia);
+                localStorage.setItem('csv_informasi', configUrls.informasi);
 
                 alert("Tautan tersimpan! Memperbarui data website...");
                 closeAdminModal();
