@@ -145,9 +145,9 @@
 
             <!-- Tab Navigasi Publik -->
             <div class="flex space-x-2 border-b border-slate-200">
-                <button onclick="switchTab('balita')" id="tab-btn-balita" class="px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-emerald-600 text-emerald-600 bg-white">Data Balita</button>
-                <button onclick="switchTab('bumil')" id="tab-btn-bumil" class="px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-emerald-600">Ibu Hamil</button>
-                <button onclick="switchTab('lansia')" id="tab-btn-lansia" class="px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-emerald-600">Lansia</button>
+                <button type="button" onclick="switchTab('balita')" id="tab-btn-balita" class="px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-emerald-600 text-emerald-600 bg-white">Data Balita</button>
+                <button type="button" onclick="switchTab('bumil')" id="tab-btn-bumil" class="px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-emerald-600">Ibu Hamil</button>
+                <button type="button" onclick="switchTab('lansia')" id="tab-btn-lansia" class="px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-emerald-600">Lansia</button>
             </div>
 
             <!-- Tabel Balita -->
@@ -214,8 +214,8 @@
             <div class="flex items-center space-x-3">
                 <span>Pusat Layanan Kesehatan Masyarakat</span>
                 <button type="button" onclick="openAdminModal()" class="relative z-50 p-2.5 ml-2 bg-slate-100 hover:bg-emerald-50 text-slate-600 hover:text-emerald-600 rounded-lg transition cursor-pointer inline-flex items-center justify-center" title="Akses Admin">
-    <i class="fa-solid fa-lock text-sm"></i>
-</button>
+                    <i class="fa-solid fa-lock text-sm"></i>
+                </button>
             </div>
         </div>
     </footer>
@@ -227,13 +227,13 @@
                 <h3 class="font-bold text-slate-800 text-base flex items-center">
                     <i class="fa-solid fa-id-card text-emerald-600 mr-2"></i> Rincian Data Peserta
                 </h3>
-                <button onclick="closeModalDetail()" class="text-slate-400 hover:text-slate-600 p-1">
+                <button type="button" onclick="closeModalDetail()" class="text-slate-400 hover:text-slate-600 p-1">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
             <div id="modalDetailBody" class="mt-4 text-xs space-y-4"></div>
             <div class="mt-6 pt-3 border-t border-slate-100 flex justify-end">
-                <button onclick="closeModalDetail()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold">Tutup</button>
+                <button type="button" onclick="closeModalDetail()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold">Tutup</button>
             </div>
         </div>
     </div>
@@ -243,7 +243,7 @@
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <h3 class="font-bold text-slate-800 text-base">Akses Khusus Admin CSV</h3>
-                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="space-y-3 mt-4 text-xs">
                 <div>
@@ -266,7 +266,7 @@
                     <label class="font-semibold text-slate-700">URL CSV Tab Informasi:</label>
                     <input type="text" id="urlInformasi" placeholder="Link CSV Tab Informasi..." class="w-full mt-1 px-3 py-2 border rounded-xl">
                 </div>
-                <button onclick="saveAdminConfig()" class="w-full py-2.5 bg-emerald-600 text-white font-bold rounded-xl shadow hover:bg-emerald-700 transition mt-2">Simpan & Sinkronkan</button>
+                <button type="button" onclick="saveAdminConfig()" class="w-full py-2.5 bg-emerald-600 text-white font-bold rounded-xl shadow hover:bg-emerald-700 transition mt-2">Simpan & Sinkronkan</button>
             </div>
         </div>
     </div>
@@ -277,4 +277,395 @@
         let defaultUrls = {
             balita: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHIp3qaZsk730/pub?gid=0&single=true&output=csv',
             bumil: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHIp3qaZsk730/pub?gid=1&single=true&output=csv',
-            lansia: '
+            lansia: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHIp3qaZsk730/pub?gid=2&single=true&output=csv',
+            informasi: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB7JZ6b3iwO1Q0XsAyco8M4Vp88gkNfiSzDpzjHiRXAssoC_Q5FtkDAvjqNnizn-QYHIp3qaZsk730/pub?gid=3&single=true&output=csv'
+        };
+
+        let configUrls = {
+            balita: localStorage.getItem('csv_balita') || defaultUrls.balita,
+            bumil: localStorage.getItem('csv_bumil') || defaultUrls.bumil,
+            lansia: localStorage.getItem('csv_lansia') || defaultUrls.lansia,
+            informasi: localStorage.getItem('csv_informasi') || defaultUrls.informasi
+        };
+
+        function formatToCsvUrl(url) {
+            if(!url) return '';
+            let clean = url.trim();
+            if (clean.includes('/pubhtml') || clean.includes('/edit')) {
+                clean = clean.replace(/\/pubhtml.*/, '/pub?output=csv').replace(/\/edit.*/, '/pub?output=csv');
+            }
+            if (!clean.includes('output=csv')) {
+                clean += (clean.includes('?') ? '&' : '?') + 'output=csv';
+            }
+            clean += '&_t=' + new Date().getTime();
+            return clean;
+        }
+
+        function parseCsvRow(row) {
+            let insideQuote = false;
+            let currentStr = '';
+            const cols = [];
+            for (let i = 0; i < row.length; i++) {
+                const char = row[i];
+                if (char === '"') {
+                    insideQuote = !insideQuote;
+                } else if (char === ',' && !insideQuote) {
+                    cols.push(currentStr.trim());
+                    currentStr = '';
+                } else {
+                    currentStr += char;
+                }
+            }
+            cols.push(currentStr.trim());
+            return cols.map(c => c.replace(/^"|"$/g, '').trim());
+        }
+
+        async function fetchAllData() {
+            document.getElementById('syncStatus').innerText = "Memperbarui...";
+            let hasSuccess = false;
+
+            if(configUrls.balita) {
+                const res = await fetchCsv(formatToCsvUrl(configUrls.balita));
+                if(res) { activeData.balita = parseBalitaCsv(res); hasSuccess = true; }
+            }
+            if(configUrls.bumil) {
+                const res = await fetchCsv(formatToCsvUrl(configUrls.bumil));
+                if(res) { activeData.bumil = parseBumilCsv(res); hasSuccess = true; }
+            }
+            if(configUrls.lansia) {
+                const res = await fetchCsv(formatToCsvUrl(configUrls.lansia));
+                if(res) { activeData.lansia = parseLansiaCsv(res); hasSuccess = true; }
+            }
+            if(configUrls.informasi) {
+                const res = await fetchCsv(formatToCsvUrl(configUrls.informasi));
+                if(res) { activeData.informasi = parseInformasiCsv(res); hasSuccess = true; }
+            }
+
+            if(hasSuccess) {
+                document.getElementById('syncStatus').innerText = "Terhubung (Live CSV)";
+                document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
+            } else {
+                document.getElementById('syncStatus').innerText = "Gagal Mengambil CSV";
+                document.getElementById('statusIndicator').className = "w-2.5 h-2.5 rounded-full bg-amber-400";
+            }
+
+            renderAll();
+        }
+
+        async function fetchCsv(url) {
+            try {
+                const res = await fetch(url, { cache: 'no-store' });
+                const text = await res.text();
+                if (text.includes('<!DOCTYPE html>') || text.includes('var n=typeof') || text.includes('<html')) {
+                    return null;
+                }
+                return text;
+            } catch(e) { return null; }
+        }
+
+        function parseBalitaCsv(csvText) {
+            const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            const list = [];
+            for (let line of lines) {
+                const cols = parseCsvRow(line);
+                if (!cols[0] || cols[0].includes("DATA BALITA") || cols[0].includes("Sistem Pencatatan") || cols[0].includes("TOTAL BALITA") || cols[0].includes("Nama Balita") || !isNaN(cols[0])) {
+                    continue;
+                }
+                list.push({
+                    nama: cols[0],
+                    nik: cols[1] || '-',
+                    tglLahir: cols[2] || '-',
+                    jk: cols[3] || 'Laki-laki',
+                    ortu: cols[4] || '-',
+                    usiaThn: cols[5] || '0',
+                    usiaBln: cols[6] || '0',
+                    lk: cols[7] || '0',
+                    ll: cols[8] || '0',
+                    bb: cols[9] || '0',
+                    tb: cols[10] || '0',
+                    riwayat: cols[12] || 'Pemeriksaan Rutin'
+                });
+            }
+            return list;
+        }
+
+        function parseBumilCsv(csvText) {
+            const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            const list = [];
+            for (let line of lines) {
+                const cols = parseCsvRow(line);
+                if (!cols[0] || cols[0].includes("DATA IBU HAMIL") || cols[0].includes("Pemantauan Kesehatan") || cols[0].includes("TOTAL IBU HAMIL") || cols[0].includes("Nama Ibu") || !isNaN(cols[0])) {
+                    continue;
+                }
+                list.push({
+                    nama: cols[0],
+                    nik: cols[1] || '-',
+                    alamat: cols[2] || '-',
+                    kehamilanKe: cols[3] || '1',
+                    usia: cols[4] || '0',
+                    uk: cols[5] || '0',
+                    golDarah: cols[6] || '-',
+                    noHp: cols[7] || '-',
+                    bb: cols[8] || '0',
+                    td: cols[9] || '-',
+                    catatan: cols[10] || '-'
+                });
+            }
+            return list;
+        }
+
+        function parseLansiaCsv(csvText) {
+            const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            const list = [];
+            for (let line of lines) {
+                const cols = parseCsvRow(line);
+                if (!cols[0] || cols[0].includes("DATA LANSIA") || cols[0].includes("Pemeriksaan Kesehatan") || cols[0].includes("TOTAL LANSIA") || cols[0].includes("Nama Lansia") || !isNaN(cols[0])) {
+                    continue;
+                }
+                list.push({
+                    nama: cols[0],
+                    nik: cols[1] || '-',
+                    usia: cols[2] || '0',
+                    td: cols[3] || '-',
+                    gula: cols[4] || '0',
+                    asamUrat: cols[5] || '0',
+                    status: cols[6] || 'Kesehatan Baik'
+                });
+            }
+            return list;
+        }
+
+        function parseInformasiCsv(csvText) {
+            const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            const list = [];
+            for (let line of lines) {
+                const cols = parseCsvRow(line);
+                if (!cols[0] || cols[0].toLowerCase().includes("informasi") || cols[0].startsWith(":")) {
+                    continue;
+                }
+                list.push({
+                    judul: cols[0].replace(':', '').trim(),
+                    isi: cols[1] || cols[0]
+                });
+            }
+            return list;
+        }
+
+        function renderAll() {
+            updateStats();
+            renderInformasi();
+            renderBalita();
+            renderBumil();
+            renderLansia();
+        }
+
+        function renderInformasi() {
+            const container = document.getElementById('container-informasi');
+            if (!activeData.informasi.length) {
+                container.innerHTML = `
+                    <div class="p-4 bg-white/80 backdrop-blur rounded-xl border border-slate-200/60 col-span-full text-slate-500">
+                        <i class="fa-solid fa-circle-info mr-2 text-emerald-600"></i> Kegiatan Posyandu dilaksanakan setiap bulan tanggal 10 di Kantor Posyandu Mata Air.
+                    </div>`;
+                return;
+            }
+            container.innerHTML = '';
+            activeData.informasi.forEach(info => {
+                container.innerHTML += `
+                    <div class="p-4 bg-white/90 backdrop-blur rounded-xl border border-emerald-100 shadow-sm space-y-1">
+                        <span class="font-bold text-emerald-800 uppercase text-[10px] tracking-wider block">${info.judul}</span>
+                        <p class="text-slate-700 font-medium">${info.isi}</p>
+                    </div>
+                `;
+            });
+        }
+
+        function updateStats() {
+            document.getElementById('statBalita').innerText = activeData.balita.length;
+            document.getElementById('statIbuHamil').innerText = activeData.bumil.length;
+            document.getElementById('statLansia').innerText = activeData.lansia.length;
+        }
+
+        function renderBalita() {
+            const tbody = document.getElementById('list-balita');
+            tbody.innerHTML = activeData.balita.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Balita belum tersedia.</td></tr>';
+            activeData.balita.forEach((item, index) => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('balita', ${index})">
+                        <td class="px-5 py-3 font-bold text-slate-800">${item.nama}</td>
+                        <td class="px-5 py-3 font-mono text-slate-500">${item.nik}</td>
+                        <td class="px-5 py-3">${item.ortu}</td>
+                        <td class="px-5 py-3">${item.jk} / ${item.usiaThn} Thn ${item.usiaBln} Bln</td>
+                        <td class="px-5 py-3 text-right">
+                            <button type="button" class="px-3 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-semibold rounded-lg text-xs">Lihat Detail</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderBumil() {
+            const tbody = document.getElementById('list-bumil');
+            tbody.innerHTML = activeData.bumil.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Ibu Hamil belum tersedia.</td></tr>';
+            activeData.bumil.forEach((item, index) => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('bumil', ${index})">
+                        <td class="px-5 py-3 font-bold text-slate-800">${item.nama}</td>
+                        <td class="px-5 py-3">${item.usia} Thn</td>
+                        <td class="px-5 py-3 font-semibold text-teal-700">${item.uk} Minggu</td>
+                        <td class="px-5 py-3">${item.td}</td>
+                        <td class="px-5 py-3 text-right">
+                            <button type="button" class="px-3 py-1 bg-teal-50 text-teal-700 hover:bg-teal-100 font-semibold rounded-lg text-xs">Lihat Detail</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderLansia() {
+            const tbody = document.getElementById('list-lansia');
+            tbody.innerHTML = activeData.lansia.length ? '' : '<tr><td colspan="5" class="p-4 text-center text-slate-400">Data Lansia belum tersedia.</td></tr>';
+            activeData.lansia.forEach((item, index) => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="showDetail('lansia', ${index})">
+                        <td class="px-5 py-3 font-bold text-slate-800">${item.nama}</td>
+                        <td class="px-5 py-3">${item.usia} Thn</td>
+                        <td class="px-5 py-3">${item.td}</td>
+                        <td class="px-5 py-3"><span class="px-2.5 py-1 bg-purple-100 text-purple-800 rounded-full text-[10px] font-bold">${item.status}</span></td>
+                        <td class="px-5 py-3 text-right">
+                            <button type="button" class="px-3 py-1 bg-purple-50 text-purple-700 hover:bg-purple-100 font-semibold rounded-lg text-xs">Lihat Detail</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function showDetail(type, index) {
+            const modalBody = document.getElementById('modalDetailBody');
+            if(type === 'balita') {
+                const b = activeData.balita[index];
+                modalBody.innerHTML = `
+                    <div class="bg-emerald-50/50 p-3 rounded-xl space-y-1">
+                        <p class="text-slate-400">Nama Balita</p>
+                        <p class="text-base font-bold text-slate-800">${b.nama}</p>
+                        <p class="text-[11px] font-mono text-slate-500">NIK: ${b.nik}</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Orang Tua / Wali</span><strong>${b.ortu}</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Tgl Lahir / Jenis Kelamin</span><strong>${b.tglLahir} / ${b.jk}</strong></div>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <span class="text-slate-400 block">Usia</span>
+                        <strong>${b.usiaThn} Thn ${b.usiaBln} Bln</strong>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Berat Badan (BB)</span><strong class="text-emerald-600">${b.bb} kg</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Tinggi Badan (TB)</span><strong class="text-emerald-600">${b.tb} cm</strong></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Lingkar Kepala</span><strong>${b.lk} cm</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Lingkar Lengan</span><strong>${b.ll} cm</strong></div>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <span class="text-slate-400 block">Riwayat Kesehatan & Imunisasi:</span>
+                        <p class="font-medium mt-1 text-slate-700">${b.riwayat}</p>
+                    </div>
+                `;
+            } else if(type === 'bumil') {
+                const m = activeData.bumil[index];
+                modalBody.innerHTML = `
+                    <div class="bg-teal-50/50 p-3 rounded-xl space-y-1">
+                        <p class="text-slate-400">Nama Ibu Hamil</p>
+                        <p class="text-base font-bold text-slate-800">${m.nama}</p>
+                        <p class="text-[11px] font-mono text-slate-500">NIK: ${m.nik}</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia Ibu</span><strong>${m.usia} Tahun</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia Kandungan</span><strong class="text-teal-600">${m.uk} Minggu (Kehamilan ke-${m.kehamilanKe})</strong></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Golongan Darah</span><strong>${m.golDarah}</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">No. HP</span><strong>${m.noHp}</strong></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Berat Badan (BB)</span><strong>${m.bb} kg</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Tekanan Darah (TD)</span><strong>${m.td} mmHg</strong></div>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <span class="text-slate-400 block">Alamat Domisili:</span>
+                        <p class="font-medium mt-1 text-slate-700">${m.alamat}</p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <span class="text-slate-400 block">Catatan Suplemen & Pemeriksaan:</span>
+                        <p class="font-medium mt-1 text-slate-700">${m.catatan}</p>
+                    </div>
+                `;
+            } else if(type === 'lansia') {
+                const l = activeData.lansia[index];
+                modalBody.innerHTML = `
+                    <div class="bg-purple-50/50 p-3 rounded-xl space-y-1">
+                        <p class="text-slate-400">Nama Lansia</p>
+                        <p class="text-base font-bold text-slate-800">${l.nama}</p>
+                        <p class="text-[11px] font-mono text-slate-500">NIK: ${l.nik}</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Usia</span><strong>${l.usia} Tahun</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Tekanan Darah</span><strong>${l.td} mmHg</strong></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Gula Darah</span><strong class="text-purple-700">${l.gula} mg/dL</strong></div>
+                        <div class="bg-slate-50 p-3 rounded-xl"><span class="text-slate-400 block">Asam Urat</span><strong class="text-purple-700">${l.asamUrat} mg/dL</strong></div>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl">
+                        <span class="text-slate-400 block">Status Pemeriksaan:</span>
+                        <p class="font-bold mt-1 text-purple-700">${l.status}</p>
+                    </div>
+                `;
+            }
+            document.getElementById('modalDetail').classList.remove('hidden');
+        }
+
+        function closeModalDetail() { document.getElementById('modalDetail').classList.add('hidden'); }
+
+        function switchTab(tab) {
+            ['balita', 'bumil', 'lansia'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                document.getElementById(`tab-btn-${t}`).className = "px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-emerald-600";
+            });
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${tab}`).className = "px-4 py-2 font-semibold text-xs rounded-t-xl border-b-2 border-emerald-600 text-emerald-600 bg-white";
+        }
+
+        function openAdminModal() { 
+            document.getElementById('urlBalita').value = configUrls.balita;
+            document.getElementById('urlBumil').value = configUrls.bumil;
+            document.getElementById('urlLansia').value = configUrls.lansia;
+            document.getElementById('urlInformasi').value = configUrls.informasi;
+            document.getElementById('modalAdmin').classList.remove('hidden'); 
+        }
+        function closeAdminModal() { document.getElementById('modalAdmin').classList.add('hidden'); }
+        
+        function saveAdminConfig() {
+            if(document.getElementById('adminPin').value === '1234') {
+                configUrls.balita = document.getElementById('urlBalita').value.trim();
+                configUrls.bumil = document.getElementById('urlBumil').value.trim();
+                configUrls.lansia = document.getElementById('urlLansia').value.trim();
+                configUrls.informasi = document.getElementById('urlInformasi').value.trim();
+
+                localStorage.setItem('csv_balita', configUrls.balita);
+                localStorage.setItem('csv_bumil', configUrls.bumil);
+                localStorage.setItem('csv_lansia', configUrls.lansia);
+                localStorage.setItem('csv_informasi', configUrls.informasi);
+
+                alert("Tautan tersimpan! Memperbarui data website...");
+                closeAdminModal();
+                fetchAllData();
+            } else { alert("PIN Admin Salah!"); }
+        }
+
+        window.onload = function() {
+            fetchAllData();
+            setInterval(fetchAllData, 30000);
+        };
+    </script>
+</body>
+</html>
